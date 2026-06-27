@@ -1284,9 +1284,8 @@ code {
   position: relative;
   max-width: none;
   background:
-    radial-gradient(800px 280px at 10% 10%, rgba(59, 130, 246, 0.07), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
-    var(--card-bg-dark);
+    radial-gradient(800px 280px at 10% 10%, rgba(59, 130, 246, 0.05), transparent 55%),
+    var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
@@ -1642,6 +1641,7 @@ code {
 .case-study {
   margin: 0 auto;
   padding: var(--page-margin, 0);
+  padding-inline: 8rem;
   color: var(--text-display);
 }
 
@@ -3551,7 +3551,7 @@ body.page-transitioning {
 .dashboard-3d-layout {
   width: 100%;
   margin: 0 auto;
-  padding-inline: var(--page-margin, var(--page-gutter));
+  padding-inline: 8rem;
   position: relative;
   box-sizing: border-box;
 }
