@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Core -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <link rel="preconnect" href="https://generativelanguage.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://ryanschmidt.design">
+
+    <title>Real-Time Inventory — Ryan Schmidt</title>
+    <meta name="description" content="Case study: Real-time inventory system replacing spreadsheets. +18% recurring revenue, +8% product adoption, MVP shipped Dec 2024.">
+    <meta name="author" content="Ryan Schmidt">
+
+    <!-- SEO hygiene -->
+    <link rel="canonical" href="https://ryanschmidt.design/inventory.html">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+
+    <!-- Browser behavior / UX -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="application-name" content="Ryan Schmidt">
+    <meta name="apple-mobile-web-app-title" content="Ryan Schmidt">
+
+    <meta name="theme-color" content="#EEF1F4">
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.counter.dev" crossorigin>
+
+    <!-- Fonts (italics + only 400/500/600/700) -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- CSS (preload + apply) -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Icons & manifest -->
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+  <link rel="llms" href="/assets/llms.txt" type="text/markdown">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://ryanschmidt.design/#person",
+      "name": "Ryan Schmidt",
+      "jobTitle": "Senior Product Designer",
+      "url": "https://ryanschmidt.design/",
+      "image": "https://ryanschmidt.design/Pictures/family-pic.jpg",
+      "description": "Senior Product Designer who turns complex B2B SaaS workflows into clear, shippable tools.",
+      "sameAs": [
+        "https://www.linkedin.com/in/ryanschmidt1989/"
+      ],
+      "homeLocation": {
+        "@type": "Place",
+        "name": "Austin, TX"
+      },
+      "knowsAbout": [
+        "Information architecture",
+        "Design systems",
+        "Onboarding and member experience",
+        "Content discovery",
+        "Data visualization",
+        "UX strategy",
+        "Design tokens",
+        "Prototyping in code",
+        "Research synthesis",
+        "AI-augmented product UX"
+      ],
+      "workExample": [
+        {
+          "@type": "Article",
+          "@id": "https://ryanschmidt.design/dashboard.html#work",
+          "name": "AI-Powered Dashboards",
+          "url": "https://ryanschmidt.design/dashboard.html"
+        },
+        {
+          "@type": "Article",
+          "@id": "https://ryanschmidt.design/inventory.html#work",
+          "name": "Real-Time Inventory",
+          "url": "https://ryanschmidt.design/inventory.html"
+        },
+        {
+          "@type": "Article",
+          "@id": "https://ryanschmidt.design/ai-coding-portfolio.html#work",
+          "name": "AI-Coding my Portfolio",
+          "url": "https://ryanschmidt.design/ai-coding-portfolio.html"
+        },
+        {
+          "@type": "Article",
+          "@id": "https://ryanschmidt.design/member-portal-overhaul.html#work",
+          "name": "i4cp Member Portal Overhaul",
+          "url": "https://ryanschmidt.design/member-portal-overhaul.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ryanschmidt.design/#website",
+      "url": "https://ryanschmidt.design/",
+      "name": "Ryan Schmidt \u2014 Senior Product Designer",
+      "publisher": {
+        "@id": "https://ryanschmidt.design/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ryanschmidt.design/inventory.html#webpage",
+      "url": "https://ryanschmidt.design/inventory.html",
+      "name": "Real-Time Inventory \u2014 Ryan Schmidt",
+      "isPartOf": {
+        "@id": "https://ryanschmidt.design/#website"
+      },
+      "about": {
+        "@id": "https://ryanschmidt.design/#person"
+      },
+      "description": "Case study: Real-time inventory view replacing spreadsheets. +18% recurring revenue and +8% product adoption.",
+      "primaryImageOfPage": "https://ryanschmidt.design/Pictures/family-pic.jpg",
+      "dateModified": "2026-06-24",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://ryanschmidt.design/inventory.html#work",
+      "name": "Real-Time Inventory",
+      "description": "Single real-time view replacing spreadsheets, with clearer signals for action. Outcomes: +18% recurring revenue, +8% product adoption over one year. MVP shipped December 2024.",
+      "url": "https://ryanschmidt.design/inventory.html",
+      "author": {
+        "@id": "https://ryanschmidt.design/#person"
+      },
+      "keywords": "Enterprise, Real-time, Inventory, MVP, UX Design, B2B SaaS",
+      "dateModified": "2026-06-24",
+      "headline": "Real-Time Inventory",
+      "datePublished": "2024-12-01",
+      "articleSection": "Case Study",
+      "inLanguage": "en-US",
+      "image": "https://ryanschmidt.design/Pictures/Inventory/Inventory%20Assets.gif",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Real-time inventory"
+        },
+        {
+          "@type": "Thing",
+          "name": "Enterprise B2B SaaS"
+        },
+        {
+          "@type": "Thing",
+          "name": "MVP design"
+        }
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Hiring managers, design leaders, recruiters"
+      },
+      "publisher": {
+        "@id": "https://ryanschmidt.design/#person"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ryanschmidt.design/inventory.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What outcome did the real-time inventory redesign achieve?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "+18% recurring revenue and +8% product adoption over one year after the MVP shipped in December 2024."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What was Ryan Schmidt's role on the inventory project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lead Product Designer on a team of three. Drove problem framing, research, and system design while partnering with PM and engineering on a unified data model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why ship an MVP first on the inventory project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Teams were spending 2 to 3 hours a day reconciling spreadsheets with 15 to 20% error rates. The MVP focused on the PO-received loop to establish trust in stock counts before adding automation complexity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How did the inventory project balance small and large team needs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Quantity-first IA by default, with optional asset-level traceability for larger teams. Six user interviews surfaced this split, and the design supports both modes without separate workflows."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ryanschmidt.design/inventory.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://ryanschmidt.design/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Case Studies"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Real-Time Inventory"
+        }
+      ]
+    }
+  ]
+}
+      </script>
+
+    <!-- Analytics (non-blocking) -->
+    <script defer src="https://cdn.counter.dev/script.js"
+      data-id="1e08b765-6496-422c-a949-e17f743c2f39"
+      data-utcoffset="-6"></script>
+
+<!-- Sitemap reference -->
+<link rel="sitemap" type="application/xml" href="../sitemap.xml">
+
+<!-- DNS prefetch fallbacks (older browsers ignore preconnect) -->
+<link rel="dns-prefetch" href="https://generativelanguage.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdn.counter.dev">
+
+<!-- Preload fonts for faster rendering -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" as="style">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ryan Schmidt — Senior Product Designer">
+  <meta property="og:title" content="Real-Time Inventory — Ryan Schmidt">
+  <meta property="og:description" content="Case study: Single real-time inventory view replacing spreadsheets. +18% recurring revenue, +8% product adoption over one year.">
+  <meta property="og:url" content="https://ryanschmidt.design/inventory.html">
+  <meta property="og:image" content="https://ryanschmidt.design/Pictures/Inventory/Inventory%20Settings.png">
+  <meta property="og:image:alt" content="Inventory settings for alerts, thresholds, and automation rules">
+  <meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Real-Time Inventory - Ryan Schmidt">
+<meta name="twitter:description" content="Case study: Single real-time inventory view replacing spreadsheets. +18% recurring revenue, +8% product adoption over one year.">
+<meta name="twitter:image" content="https://ryanschmidt.design/Pictures/Inventory/Inventory%20Settings.png">
+<meta name="twitter:image:alt" content="Inventory item detail with movement history, allocations, and reorder settings">
+</head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <main id="main" class="site-main">
+      <article class="case-study case-study--inventory" aria-labelledby="title">
+        <header class="tldr" aria-label="Executive summary">
+          <h1 id="title" data-parallax="0.06">Real-Time Inventory</h1>
+          <p class="lead">
+            <!-- TODO Ryan: confirm whether this claim is accurate before publishing. -->
+            Inventory was not just a workflow gap; it was a sales and retention blocker. Enterprise prospects expected inventory to connect with purchasing and project workflows, while existing customers were using spreadsheets because the product did not give them a trustworthy source of truth.
+            <br><br>I redesigned this into a real-time, unified inventory system—reducing manual reconciliation, improving accuracy, and helping drive an 18% increase in recurring revenue.
+          </p>
+
+          <div class="tldr-meta">
+            <div class="tldr-role">
+              <p class="tldr-label label" data-reveal>My role</p>
+              <p>
+                <strong>Lead Product Designer (team of 3)</strong> <br>
+                Drove problem framing, research, and system design, partnering closely with PM and engineering to define scope, align on a unified data model, and ship a high-impact MVP.
+              </p>
+            </div>
+
+            <div class="tldr-kpis">
+              <p class="tldr-label label">Key outcomes after 1 year</p>
+              <ul class="kpis kpis--hero">
+                <li>
+                  <strong class="metric" data-animate>+8%</strong>
+                  <span class="metric-label">product adoption</span>
+                </li>
+                <li>
+                  <strong class="metric" data-animate>+18%</strong>
+                  <span class="metric-label">recurring revenue</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </header>
+
+        <section data-ink="dark" aria-label="Problem & goals">
+          <p class="eyebrow" data-reveal>Phase 1 · Understand</p>
+          <h2 data-reveal>Problem</h2>
+          <ul>
+            <li><strong>Users:</strong> Teams needed accurate stock counts without hours of reconciliation; otherwise projects slipped and equipment went missing</li>
+            <li><strong>Stakeholders:</strong> Enterprise prospects expected integrated inventory before signing deals</li>
+          </ul>
+
+          <h3>Objectives</h3>
+          <ul>
+            <li>Reduce manual tracking and errors</li>
+            <li>Automate alerts and reorders</li>
+            <li>Integrate with purchasing/projects</li>
+          </ul>
+        </section>
+
+        <section data-ink="dark" aria-label="Research">
+          <div class="section-divider">
+            <h2>Research Insights</h2>
+          </div>
+          <ul>
+            <li><strong>Methods:</strong> 6 user interviews, workflow mapping, and a competitive analysis</li>
+            <li><strong>Time sink:</strong> 2–3 hours/day reconciling stock; 15–20% error rates</li>
+            <li><strong>User split:</strong> Small AV shops needed fast confidence in quantities, while larger teams needed asset‑level traceability (tracking specific asset numbers) for accountability</li>
+            <li><strong>Market signal:</strong> Integrated inventory was table stakes in enterprise deals</li>
+          </ul>
+
+          <h3>Defining Decision</h3>
+          <p>
+            We could have shipped a simpler, spreadsheet-like solution with periodic updates.
+          </p>
+          <p>
+            Instead, I pushed for a real-time, unified inventory system across projects and locations. 
+            While this added technical complexity, it eliminated duplicate sources of truth and ensured teams could trust inventory data everywhere.
+          </p>
+
+          <aside data-reveal data-ink="dark" data-surface="light" class="insight-cards">
+            <h3>Design Responses</h3>
+            <ol>
+              <li><strong>Receiving defines truth:</strong> Inventory updates at the moment a PO is received — eliminating lag and reconciliation gaps</li>
+              <li><strong>Unified data model:</strong> One system across projects and stock, removing duplication and conflicting counts</li>
+              <li><strong>Surface risk early:</strong> Low-stock alerts and reorder signals make inventory issues visible before they become urgent</li>
+            </ol>
+          </aside>
+
+          <div data-compare data-compare-default="spreadsheet">
+            <div class="compare-tabs">
+              <button type="button" data-compare-button="spreadsheet" aria-pressed="true">Spreadsheet</button>
+              <button type="button" data-compare-button="system">Real-time system</button>
+            </div>
+            <div class="compare-panels">
+              <div class="compare-panel" data-compare-state="spreadsheet">
+                <h3>Legacy spreadsheet workflow</h3>
+                <p>Users manually reconciled counts, split data across tabs, and made decisions from stale information.</p>
+              </div>
+              <div class="compare-panel" data-compare-state="system">
+                <h3>Unified real-time inventory</h3>
+                <p>A single source of truth surfaced stock risk early, reduced reconciliation, and made decisions faster and more reliable.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section data-reveal data-ink="dark" aria-label="Journey Map">
+          <p class="eyebrow">Phase 2 · Decide</p>
+          <div class="section-divider">
+            <h2>Solution Journey</h2>
+          </div>
+          <div class="journey-insights">
+            <h3>Problems</h3>
+            <ul>
+              <li>Manual spreadsheet reconciliation hid low‑stock thresholds, causing delays and last‑minute emergency buys</li>
+            </ul>
+          </div>
+          <div class="journey-hmw">
+            <h3>How Might We</h3>
+            <p>How might we surface critical inventory risks and eliminate manual reconciliation?</p>
+          </div>
+          <div class="journey-solutions">
+            <h3>Solutions</h3>
+            <ul>
+              <li><strong>Surface risk:</strong> Visual low-stock and incoming-PO indicators on the inventory dashboard</li>
+              <li><strong>Automation:</strong> PO-driven stock updates and status changes across locations</li>
+            </ul>
+          </div>
+          <div data-progress-story>
+            <div data-story-step>
+              <span class="step-label">Map the pain</span>
+              <p class="step-copy">Captured how spreadsheets delayed decisions and concealed stock risk.</p>
+            </div>
+            <div data-story-step>
+              <span class="step-label">Align the model</span>
+              <p class="step-copy">Built a single inventory system that reflected projects, purchases, and counts in one place.</p>
+            </div>
+            <div data-story-step>
+              <span class="step-label">Surface the risk</span>
+              <p class="step-copy">Designed alerts and thresholds so low stock became visible before it became urgent.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-ink="dark" aria-label="Decisions and trade-offs">
+          <div class="section-divider">
+            <h2>System model</h2>
+          </div>
+          <p>
+            The core design challenge was not just showing inventory. It was defining how inventory changed state across purchasing, receiving, project allocation, location transfers, and asset-level tracking. I worked with PM and engineering to align on a shared model so the UI could explain why an item was available, allocated, incoming, or low-stock instead of showing a flat quantity with no context.
+          </p>
+
+          <div class="section-divider">
+            <h2>Key decisions & tradeoffs</h2>
+          </div>
+          <ul>
+            <li><strong>Real-time unified model:</strong> Chose a single real-time system across locations despite added complexity—ensuring consistent, reliable stock counts everywhere</li>
+            <li><strong>Manual reordering (MVP):</strong> <!-- TODO Ryan: confirm whether this claim is accurate before publishing. --> We intentionally stopped short of fully automated reordering in the MVP because teams first needed to trust the inventory counts and alert thresholds. Automating purchasing before trust was established could have created expensive mistakes, so alerts gave us a safer path to validate behavior before increasing automation.</li>
+            <li><strong>Native integration:</strong> Integrated directly with purchasing and project tools to meet enterprise expectations and avoid tool sprawl</li>
+          </ul>
+        </section>
+
+        <section data-ink="dark" aria-label="Design highlights" class="dh">
+          <h2>Design Highlights</h2>
+
+          <div class="dh-carousel" role="region" aria-roledescription="carousel" aria-label="Design highlights">
+            <button class="dh-nav dh-prev" aria-label="Previous slide" type="button">‹</button>
+
+            <div class="dh-track" tabindex="0" role="region" aria-label="Case study screenshots — use arrow keys to navigate" aria-roledescription="carousel">
+              <figure class="dh-slide">
+                <video autoplay loop muted playsinline width="2880" height="1496">
+                  <source src="../Pictures/Inventory/Inventory Assets.mp4" type="video/mp4">
+                </video>
+                <figcaption>Movement history, allocations, and reorder settings.</figcaption>
+              </figure>
+
+              <figure class="dh-slide">
+                <video autoplay loop muted playsinline width="2880" height="1496">
+                  <source src="../Pictures/Inventory/Inventory Modal.mp4" type="video/mp4">
+                </video>
+                <figcaption>Low stock indicators, incoming POs, and bulk actions.</figcaption>
+              </figure>
+
+              <figure class="dh-slide">
+                <img src="../Pictures/Inventory/Inventory Settings.png" alt="Inventory settings for alerts, thresholds, and automation rules" loading="lazy" decoding="async">
+                <figcaption>Inventory settings and automation controls.</figcaption>
+              </figure>
+            </div>
+
+            <button class="dh-nav dh-next" aria-label="Next slide" type="button">›</button>
+
+            <div class="dh-dots" role="tablist" aria-label="Slide pagination"></div>
+          </div>
+
+        </section>
+
+        <section data-ink="dark" aria-label="Validation">
+          <div class="section-divider">
+          <h2>Prototyping & Validation</h2>
+          </div>
+          <p>Ran three rounds of high‑fidelity Figma tests to validate receiving, alerts, multi‑location inventory, and reordering flows for clarity and error reduction.</p>
+
+          <h3>Defining decision: quantity-first by default, asset-level when needed</h3>
+          <p>
+            Testing showed that smaller teams wanted fast confidence in counts, while larger teams needed specific asset traceability for accountability. I designed the system to stay quantity-first by default, with asset-level tracking available where the workflow required it. That kept the common path simple without blocking enterprise-level control.
+          </p>
+        </section>
+
+        <section data-ink="dark" aria-label="Quality & handoff">
+          <div class="section-divider">
+            <h2>Quality & Handoff</h2>
+          </div>
+          <ul>
+            <li><strong>Edge‑case coverage:</strong> Documented how allocations, multi‑location states, and receiving/reordering rules affect “available” inventory so UI behavior stays consistent</li>
+            <li><strong>Shared data model:</strong> Aligned with engineering on how locations, allocations, and asset‑level tracking roll up into one source of truth for stock counts</li>
+          </ul>
+        </section>
+
+        <section data-ink="dark" aria-label="Impact" class="impact-section">
+          <div class="section-divider">
+            <h2>Impact</h2>
+          </div>
+          <p class="impact-lede">The system replaced fragmented tracking with a single source of truth—reducing reconciliation time, improving project accuracy, and surfacing unused inventory.
+            <br><br>One customer uncovered thousands of dollars in unused equipment, highlighting how much value had been hidden in disconnected workflows.</p>
+          <div data-surface="dark" class="impact-callout">
+            <div class="impact-metric">
+              <strong class="metric" data-animate>+8%</strong>
+              <span class="metric-label">product adoption</span>
+            </div>
+            <div class="impact-metric">
+              <strong class="metric" data-animate>+18%</strong>
+              <span class="metric-label">recurring revenue</span>
+            </div>
+          </div>
+          <p>
+            <!-- TODO Ryan: confirm whether this claim is accurate before publishing. -->
+            The inventory release helped remove a recurring blocker in enterprise sales conversations and contributed to an 18% increase in recurring revenue over the following year.
+          </p>
+        </section>
+
+        <section data-ink="dark" aria-label="Lessons & next steps">
+          <p class="eyebrow">Phase 3 · Forward Thinking</p>
+          <div class="section-divider">
+            <h2>Lessons & Next Steps</h2>
+          </div>
+          <p>
+            The biggest lesson was that operational products earn trust through state clarity. Users did not just need to know how many items were in stock; they needed to understand why the number was trustworthy, where it came from, and what would happen next.
+          </p>
+          <ul>
+            <li><strong>Next:</strong> auto-PO creation from thresholds, mobile scanning, and stock analytics (velocity and dead stock)</li>
+          </ul>
+        </section>
+      </article>
+
+    </main>
+
+    <!-- Fixed floating bottom nav -->
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
+      <span class="hamburger-inner" aria-hidden="true"></span>
+    </button>
+    <div class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" role="menu">
+      <a href="../index.html" role="menuitem">Home</a>
+      <a href="../pages/about.html" role="menuitem">About</a>
+        <div class="menu-item-group">
+          <span class="menu-trigger" role="menuitem" tabindex="0">Case Studies</span>
+          <div class="menu-submenu">
+            <a href="../pages/dashboard.html" role="menuitem">AI‑Powered Dashboards</a>
+            <a href="../pages/inventory.html" role="menuitem" aria-current="page">Real-Time Inventory</a>
+            <a href="../pages/member-portal-overhaul.html" role="menuitem">i4cp Member Portal</a>
+            <a href="../pages/ai-coding-portfolio.html" role="menuitem">AI-Coding my Portfolio</a>
+          </div>
+        </div>
+      <a href="../assets/ryan-schmidt-resume-june-2026.pdf" role="menuitem" target="_blank" rel="noopener">Resume</a>
+      <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener" role="menuitem">LinkedIn</a>
+    </div>
+
+    <div class="ai-mini-wrapper" data-assistant-trigger>
+      <input type="text" id="ai-mini-input" class="ai-mini-input" placeholder="Ask…" autocomplete="off" aria-label="Ask about Ryan's work, case studies, or role fit" />
+      <button id="ai-mini-send" class="ai-mini-send" aria-label="Send">→</button>
+    </div>
+
+    <!-- GSAP for smooth chat widget animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Consolidated JavaScript -->
+    <script src="../scripts/scripts.js"></script>
+    <script src="../scripts/circular-carousel.js" defer></script>
+    <script src="../scripts/rs-chat-widget.js" defer></script>
+
+  </body>
+</html>
+
+

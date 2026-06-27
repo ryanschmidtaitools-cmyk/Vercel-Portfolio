@@ -1,0 +1,53 @@
+# Ryan Schmidt
+## Senior Product Designer
+
+> Ryan Schmidt is a CX/UX designer at i4cp focused on information architecture,
+> member experience, and AI-augmented product UX. He turns messy research and
+> legacy interfaces into systems that scale, with measurable outcomes like task
+> success, component reuse, and adoption. Strengths sit at the seam of design
+> and engineering: token-first design systems, prototyping in code, and AI
+> tooling like Cursor and Claude. Based in Austin, TX.
+
+## Specialties
+
+- Information Architecture
+- Design Systems (token-first)
+- AI-augmented Product UX
+- Member Experience
+- Design + Engineering Collaboration
+
+## Contact & profiles
+
+- Portfolio: https://ryanschmidt.design/
+- About: https://ryanschmidt.design/about.html
+- Resume (PDF): https://ryanschmidt.design/assets/ryan-schmidt-resume-june-2026.pdf
+- LinkedIn: https://www.linkedin.com/in/ryanschmidt1989/
+
+## Ask the portfolio AI
+
+An AI chat widget powered by Gemini is available on every page. It can answer
+questions about Ryan's background, case studies, working style, and fit for
+specific roles. The knowledge base includes anti-hallucination policy, outcome
+metrics, and structured fit-matching. Endpoint: /api/chat (POST).
+
+## Case studies
+
+- [AI-Powered Dashboards](https://ryanschmidt.design/dashboard.html)
+  Operational dashboard surfacing high-frequency tasks and prioritized alerts.
+  Outcomes: +71% beta engagement, 62% multi-dashboard adoption.
+
+- [Real-Time Inventory](https://ryanschmidt.design/inventory.html)
+  Single real-time view replacing spreadsheets, with clearer signals for action.
+  Outcomes: +18% recurring revenue, +8% product adoption (1-year).
+
+- [AI-Coding my Portfolio](https://ryanschmidt.design/ai-coding-portfolio.html)
+  Portfolio rebuilt from scratch with Cursor, Gemini, and Antigravity.
+  Outcomes: fully custom site, reusable UI and code patterns, AI integrated into workflow.
+
+- [i4cp Member Portal Overhaul](https://ryanschmidt.design/member-portal-overhaul.html)
+  Research-led navigation and IA overhaul for an enterprise HR research portal.
+  Status: In progress — designs complete, validation testing planned July 2026.
+
+## Optional
+- https://ryanschmidt.design/portfolio-kb.json — Full KB used by the on-site AI assistant.
+- https://ryanschmidt.design/assets/ryan-schmidt-resume-june-2026.pdf
