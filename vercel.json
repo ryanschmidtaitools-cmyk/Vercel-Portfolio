@@ -1,0 +1,54 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/about.html",
+      "destination": "/pages/about.html",
+      "permanent": false
+    },
+    {
+      "source": "/dashboard.html",
+      "destination": "/pages/dashboard.html",
+      "permanent": false
+    },
+    {
+      "source": "/inventory.html",
+      "destination": "/pages/inventory.html",
+      "permanent": false
+    },
+    {
+      "source": "/ai-coding-portfolio.html",
+      "destination": "/pages/ai-coding-portfolio.html",
+      "permanent": false
+    },
+    {
+      "source": "/member-portal-overhaul.html",
+      "destination": "/pages/member-portal-overhaul.html",
+      "permanent": false
+    },
+    {
+      "source": "/design-system.html",
+      "destination": "/ai-coding-portfolio.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio-kb.json",
+      "destination": "/assets/portfolio-kb.json",
+      "permanent": false
+    },
+    {
+      "source": "/llms.txt",
+      "destination": "/assets/llms.txt",
+      "permanent": false
+    }
+  ]
+}
