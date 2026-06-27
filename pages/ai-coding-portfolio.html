@@ -264,6 +264,431 @@
 <meta name="twitter:description" content="Case study: Rebuilding a portfolio from scratch with Cursor, Gemini, and Antigravity — custom code, reusable patterns, and AI in the workflow.">
 <meta name="twitter:image" content="https://ryanschmidt.design/Pictures/og-default.jpg">
 <meta name="twitter:image:alt" content="Ryan Schmidt portfolio built with AI coding tools">
+  <style>
+    /* ── Interactive System Demo ── */
+    .asd-shell {
+      --asd-bg: #eef2f6;
+      --asd-surface: #f8fafc;
+      --asd-surface-strong: #ffffff;
+      --asd-border: rgba(15, 23, 42, 0.12);
+      --asd-text: #172033;
+      --asd-muted: #64748b;
+      --asd-shadow: rgba(15, 23, 42, 0.16);
+      --asd-accent-core: #1f2a68;
+      --asd-accent-function: #f97316;
+      --asd-accent-db: #10b981;
+      --asd-accent-ai: #a855f7;
+      --asd-accent-json: #2563eb;
+
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      margin-top: var(--space-6);
+      border: 1px solid var(--asd-border);
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.88), transparent 42%),
+                  linear-gradient(180deg, #f7f9fc 0%, var(--asd-bg) 100%);
+      color: var(--asd-text);
+      box-shadow: 0 28px 70px rgba(15, 23, 42, 0.14);
+    }
+
+    .asd-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+    }
+
+    .asd-shell > * { position: relative; z-index: 1; }
+
+    .asd-header { max-width: 720px; margin-bottom: 1.25rem; }
+
+    .asd-eyebrow {
+      margin: 0 0 0.45rem;
+      color: var(--asd-accent-core);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .asd-header h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    .asd-header p {
+      margin: 0.7rem 0 0;
+      color: var(--asd-muted);
+      line-height: 1.55;
+    }
+
+    .asd-prompt-bar {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .asd-fake-input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.11);
+      background: rgba(255, 255, 255, 0.72);
+      color: #334155;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .asd-run-btn,
+    .asd-reset-btn,
+    .asd-peek-btn {
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .asd-run-btn {
+      padding: 0.85rem 1rem;
+      background: var(--asd-accent-core);
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(31, 42, 104, 0.26);
+    }
+
+    .asd-run-btn:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .asd-reset-btn {
+      padding: 0.85rem 1rem;
+      background: transparent;
+      color: var(--asd-accent-core);
+      font-weight: 700;
+    }
+
+    .asd-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: clamp(0.5rem, 2vw, 1rem) 0;
+    }
+
+    .asd-node {
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.11);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.11);
+      backdrop-filter: blur(14px);
+      opacity: 0.72;
+      transition: opacity 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .asd-node.is-active {
+      opacity: 1;
+    }
+
+    .asd-node[data-accent="blue"].is-active {
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.28), 0 22px 48px rgba(37, 99, 235, 0.14), 0 18px 42px rgba(15, 23, 42, 0.11);
+    }
+
+    .asd-node[data-accent="green"].is-active {
+      box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.34), 0 22px 48px rgba(16, 185, 129, 0.14), 0 18px 42px rgba(15, 23, 42, 0.11);
+    }
+
+    .asd-node[data-accent="purple"].is-active {
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.3), 0 22px 48px rgba(168, 85, 247, 0.14), 0 18px 42px rgba(15, 23, 42, 0.11);
+    }
+
+    .asd-node h3 {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .asd-node p {
+      margin: 0.45rem 0 0;
+      color: var(--asd-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .asd-node-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .asd-kicker {
+      color: var(--asd-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .asd-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: #cbd5e1;
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .asd-node.is-active .asd-dot {
+      background: currentColor;
+      box-shadow: 0 0 18px currentColor;
+    }
+
+    .asd-node[data-accent="blue"].is-active .asd-dot { color: var(--asd-accent-json); }
+    .asd-node[data-accent="green"].is-active .asd-dot { color: var(--asd-accent-db); }
+    .asd-node[data-accent="purple"].is-active .asd-dot { color: var(--asd-accent-ai); }
+
+    .asd-function-node.is-active {
+      border-color: rgba(249, 115, 22, 0.28);
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.38), 0 24px 54px rgba(249, 115, 22, 0.16), 0 18px 42px rgba(15, 23, 42, 0.11);
+    }
+
+    .asd-function-node.is-active .asd-dot { color: var(--asd-accent-function); }
+
+    .asd-branch {
+      display: flex;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 600px;
+      justify-content: center;
+    }
+
+    .asd-branch .asd-node {
+      flex: 1;
+      max-width: 280px;
+    }
+
+    .asd-flow-line {
+      display: block;
+      width: 2px;
+      min-height: 32px;
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.22));
+      opacity: 0.65;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.35s ease;
+    }
+
+    .asd-flow-line.is-active {
+      opacity: 1;
+    }
+
+    .asd-flow-line::after {
+      content: "";
+      position: absolute;
+      inset: -40% 0;
+      background: linear-gradient(to bottom, transparent, var(--asd-accent-core), transparent);
+      transform: translateY(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .asd-flow-line.is-active::after {
+      transform: translateY(100%);
+      animation: asd-flow-pulse 1.2s linear infinite;
+    }
+
+    .asd-flow-line-h {
+      width: 100%;
+      max-width: 100px;
+      height: 2px;
+      min-height: 2px;
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.22));
+      align-self: center;
+    }
+
+    .asd-flow-line-h::after {
+      background: linear-gradient(to right, transparent, var(--asd-accent-core), transparent);
+      transform: translateX(-100%);
+    }
+
+    .asd-flow-line-h.is-active::after {
+      transform: translateX(100%);
+      animation: asd-flow-pulse-h 1.2s linear infinite;
+    }
+
+    @keyframes asd-flow-pulse {
+      to { transform: translateY(100%); }
+    }
+
+    @keyframes asd-flow-pulse-h {
+      to { transform: translateX(100%); }
+    }
+
+    .asd-peek-btn {
+      margin-top: 0.8rem;
+      padding: 0;
+      background: transparent;
+      color: var(--asd-accent-function);
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .asd-internals {
+      overflow: hidden;
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .asd-internals[hidden] { display: none; }
+
+    .asd-internals li {
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.35rem 0;
+      color: var(--asd-muted);
+      font-size: 0.86rem;
+      font-weight: 650;
+      list-style: none;
+      transition: color 0.3s ease;
+    }
+
+    .asd-internals li::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      background: #cbd5e1;
+      flex-shrink: 0;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .asd-internals li.is-active {
+      color: var(--asd-text);
+    }
+
+    .asd-internals li.is-active::before {
+      background: var(--asd-accent-function);
+      box-shadow: 0 0 16px rgba(249, 115, 22, 0.65);
+    }
+
+    .asd-answer-card {
+      width: 100%;
+      max-width: 500px;
+      padding: 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.11);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.11);
+      opacity: 0.68;
+      transform: translateY(8px);
+      transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    .asd-answer-card.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 0 0 1px rgba(31, 42, 104, 0.28), 0 24px 54px rgba(31, 42, 104, 0.15), 0 18px 42px rgba(15, 23, 42, 0.11);
+    }
+
+    .asd-answer-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.65rem;
+      color: var(--asd-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .asd-answer-card p {
+      margin: 0;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .asd-telemetry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .asd-metric {
+      padding: 0.8rem;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      background: rgba(255, 255, 255, 0.62);
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .asd-metric.is-active {
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+    }
+
+    .asd-metric strong,
+    .asd-metric span {
+      display: block;
+    }
+
+    .asd-metric strong {
+      font-size: 0.95rem;
+      color: var(--asd-text);
+    }
+
+    .asd-metric span {
+      margin-top: 0.18rem;
+      color: var(--asd-muted);
+      font-size: 0.78rem;
+    }
+
+    .asd-caption {
+      display: flex;
+      gap: 0.6rem;
+      align-items: baseline;
+      margin-top: 1rem;
+      color: var(--asd-muted);
+      font-size: 0.9rem;
+      min-height: 2.5rem;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .asd-caption strong {
+      color: var(--asd-text);
+    }
+
+    @media (max-width: 640px) {
+      .asd-prompt-bar { flex-direction: column; align-items: stretch; }
+      .asd-branch { flex-direction: column; align-items: center; }
+      .asd-branch .asd-node { max-width: 400px; }
+      .asd-telemetry { grid-template-columns: 1fr; }
+      .asd-flow-line-h { width: 2px; min-height: 28px; height: 28px; background: linear-gradient(to bottom, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.22)); }
+      .asd-flow-line-h::after { background: linear-gradient(to bottom, transparent, var(--asd-accent-core), transparent); transform: translateY(-100%); }
+      .asd-flow-line-h.is-active::after { transform: translateY(100%); animation: asd-flow-pulse 1.2s linear infinite; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .asd-flow-line.is-active::after,
+      .asd-flow-line-h.is-active::after { animation: none; }
+      .asd-flow-line::after { display: none; }
+      .asd-flow-line.is-active { background: var(--asd-accent-core); opacity: 0.5; }
+    }
+  </style>
 </head>
 
 <body>
@@ -392,6 +817,249 @@
             The system connects structured prompts to real product features, not just generated code.
           </p>
         </section>
+
+        <section aria-label="Interactive system demo" class="asd-shell" data-state="idle">
+          <div class="asd-header">
+            <p class="asd-eyebrow">Interactive walkthrough</p>
+            <h2>See how the system works</h2>
+            <p>
+              Watch a visitor question travel through the portfolio assistant — from input to
+              structured, context-aware answer — at your own pace.
+            </p>
+          </div>
+
+          <div class="asd-prompt-bar">
+            <div class="asd-fake-input" id="asdInput">
+              What has Ryan built related to AI product design?
+            </div>
+            <button class="asd-run-btn" id="asdRun" type="button">Run system</button>
+            <button class="asd-reset-btn" id="asdReset" type="button" hidden>Reset</button>
+          </div>
+
+          <div class="asd-stage">
+            <!-- Input -->
+            <div class="asd-node is-active" data-id="input" data-accent="blue">
+              <div class="asd-node-top">
+                <span class="asd-kicker">Visitor question</span>
+                <div class="asd-dot"></div>
+              </div>
+              <h3>What has Ryan built related to AI?</h3>
+              <p>User submits question from the chat widget</p>
+            </div>
+
+            <div class="asd-flow-line" data-id="flow-1"></div>
+
+            <!-- Function -->
+            <div class="asd-node asd-function-node" data-id="function" data-accent="function">
+              <div class="asd-node-top">
+                <span class="asd-kicker">Netlify function</span>
+                <div class="asd-dot"></div>
+              </div>
+              <h3>Orchestrator</h3>
+              <p>Receives question, checks tools needed, routes to RAG</p>
+
+              <button class="asd-peek-btn" id="asdPeek" type="button" aria-expanded="false">
+                + Show function internals
+              </button>
+
+              <div class="asd-internals" id="asdInternals" hidden>
+                <ol style="padding:0;margin:0;list-style:none">
+                  <li data-id="substep-1">Parse question intent</li>
+                  <li data-id="substep-2">Check portfolio context</li>
+                  <li data-id="substep-3">Route to knowledge retrieval</li>
+                  <li data-id="substep-4">Format system prompt</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="asd-flow-line" data-id="flow-2"></div>
+
+            <!-- Branch -->
+            <div class="asd-branch">
+              <div class="asd-flow-line asd-flow-line-h" data-id="flow-branch-l"></div>
+              <div class="asd-flow-line asd-flow-line-h" data-id="flow-branch-r"></div>
+            </div>
+
+            <div class="asd-branch">
+              <div class="asd-node" data-id="supabase" data-accent="green">
+                <div class="asd-node-top">
+                  <span class="asd-kicker">Vector store</span>
+                  <div class="asd-dot"></div>
+                </div>
+                <h3>Supabase pgvector</h3>
+                <p>Searches 1,400+ embedded project chunks for context</p>
+              </div>
+
+              <div class="asd-node" data-id="gemini" data-accent="purple">
+                <div class="asd-node-top">
+                  <span class="asd-kicker">Language model</span>
+                  <div class="asd-dot"></div>
+                </div>
+                <h3>Gemini 2.5 Flash</h3>
+                <p>Generates answer from retrieved context + system prompt</p>
+              </div>
+            </div>
+
+            <div class="asd-flow-line" data-id="flow-3"></div>
+
+            <!-- Answer card -->
+            <div class="asd-answer-card" data-id="answer">
+              <div class="asd-answer-head">
+                <span>Response</span>
+                <span>2.4s</span>
+              </div>
+              <p>
+                Ryan has built an AI-powered portfolio assistant that uses RAG to answer
+                visitor questions in real time. The system combines a Supabase vector store
+                with Gemini 2.5 Flash to provide structured, context-aware responses about
+                his product design work, systems thinking approach, and builder experience.
+              </p>
+            </div>
+          </div>
+
+          <div class="asd-telemetry">
+            <div class="asd-metric" data-id="metric-1">
+              <strong>1.3k</strong>
+              <span>tokens generated</span>
+            </div>
+            <div class="asd-metric" data-id="metric-2">
+              <strong>12</strong>
+              <span>chunks retrieved</span>
+            </div>
+            <div class="asd-metric" data-id="metric-3">
+              <strong>26ms</strong>
+              <span>vector search</span>
+            </div>
+          </div>
+
+          <div class="asd-caption" id="asdCaption" aria-live="polite">
+            <span>Press <strong>Run system</strong> to trace a question through the pipeline.</span>
+          </div>
+        </section>
+
+        <script>
+          (function(){
+            const shell = document.querySelector('.asd-shell');
+            if (!shell) return;
+
+            const runBtn    = document.getElementById('asdRun');
+            const resetBtn  = document.getElementById('asdReset');
+            const peekBtn   = document.getElementById('asdPeek');
+            const caption   = document.getElementById('asdCaption');
+            const internals = document.getElementById('asdInternals');
+            let timerId     = null;
+
+            // Helper: activate nodes/lines by data-id
+            function activate(id) {
+              const els = shell.querySelectorAll(`[data-id="${id}"]`);
+              els.forEach(el => {
+                if (el.classList.contains('asd-flow-line') || el.classList.contains('asd-flow-line-h')) {
+                  el.classList.add('is-active');
+                } else {
+                  el.classList.add('is-active');
+                }
+              });
+            }
+
+            function deactivate(id) {
+              const els = shell.querySelectorAll(`[data-id="${id}"]`);
+              els.forEach(el => el.classList.remove('is-active'));
+            }
+
+            function deactivateAll() {
+              shell.querySelectorAll('.is-active').forEach(el => el.classList.remove('is-active'));
+            }
+
+            const steps = [
+              { id: 'input', msg: 'Step 1/5 — Visitor submits a question from the chat widget.', delay: 220 },
+              { id: 'flow-1', msg: 'Step 1/5 — Visitor submits a question from the chat widget.', delay: 40 },
+              { id: 'function', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 320 },
+              { id: 'substep-1', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 60 },
+              { id: 'substep-2', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 120 },
+              { id: 'substep-3', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 120 },
+              { id: 'substep-4', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 120 },
+              { id: 'flow-2', msg: 'Step 2/5 — Netlify function parses intent and routes to RAG pipeline.', delay: 50 },
+              { id: 'flow-branch-l', msg: 'Step 3/5 — Vector store searches 1,400+ embedded project chunks.', delay: 40 },
+              { id: 'flow-branch-r', msg: 'Step 3/5 — Vector store searches 1,400+ embedded project chunks.', delay: 40 },
+              { id: 'supabase', msg: 'Step 3/5 — Vector store searches 1,400+ embedded project chunks.', delay: 300 },
+              { id: 'gemini', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 400 },
+              { id: 'flow-3', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 50 },
+              { id: 'metric-1', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 40 },
+              { id: 'metric-2', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 40 },
+              { id: 'metric-3', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 40 },
+              { id: 'flow-branch-l', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 40 },
+              { id: 'flow-branch-r', msg: 'Step 4/5 — Gemini 2.5 Flash generates answer from context + prompt.', delay: 40 },
+              { id: 'answer', msg: 'Step 5/5 — Structured answer delivered back to the visitor.', delay: 380 },
+              { type: 'done', msg: 'Complete — The visitor sees a relevant, structured answer about Ryan\'s AI work. <strong>Press Reset</strong> to run again.', delay: 0 }
+            ];
+
+            function animateSequence(){
+              deactivateAll();
+              shell.dataset.state = 'running';
+              runBtn.disabled = true;
+              resetBtn.hidden = true;
+              let totalDelay = 0;
+
+              for (let i = 0; i < steps.length; i++) {
+                const s = steps[i];
+                totalDelay += s.delay;
+                if (s.type === 'done') {
+                  (function(msg, t){
+                    setTimeout(function(){
+                      caption.innerHTML = msg;
+                      shell.dataset.state = 'complete';
+                      runBtn.disabled = false;
+                      resetBtn.hidden = false;
+                    }, t);
+                  })(s.msg, totalDelay);
+                } else {
+                  (function(id, msg, t){
+                    setTimeout(function(){
+                      activate(id);
+                      caption.innerHTML = '<span>' + msg + '</span>';
+                    }, t);
+                  })(s.id, s.msg, totalDelay);
+                }
+              }
+              timerId = setTimeout(function(){
+                shell.dataset.state = 'complete';
+              }, totalDelay + 200);
+            }
+
+            function resetSequence(){
+              if (timerId) { clearTimeout(timerId); timerId = null; }
+              deactivateAll();
+              shell.dataset.state = 'idle';
+              runBtn.disabled = false;
+              resetBtn.hidden = true;
+              caption.innerHTML = '<span>Press <strong>Run system</strong> to trace a question through the pipeline.</span>';
+              // re-activate input node as idle state
+              activate('input');
+            }
+
+            // Peek toggle
+            peekBtn.addEventListener('click', function(){
+              const expanded = peekBtn.getAttribute('aria-expanded') === 'true';
+              peekBtn.setAttribute('aria-expanded', !expanded);
+              internals.hidden = expanded;
+              peekBtn.textContent = expanded ? '+ Show function internals' : '− Hide function internals';
+            });
+
+            runBtn.addEventListener('click', animateSequence);
+            resetBtn.addEventListener('click', resetSequence);
+
+            // Init: input active
+            activate('input');
+
+            // Keyboard: Enter on run/reset
+            runBtn.addEventListener('keydown', function(e){
+              if (e.key === 'Enter') animateSequence();
+            });
+            resetBtn.addEventListener('keydown', function(e){
+              if (e.key === 'Enter') resetSequence();
+            });
+          })();
+        </script>
 
         <section aria-label="Key decisions & trade-offs" class="section--alt">
           <div class="section-divider">
