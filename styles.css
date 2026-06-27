@@ -2177,23 +2177,15 @@ code {
 
 .case-study--ai-coding-portfolio .sa-funnel {
   display: grid;
-  grid-template-columns: 1fr 44px 1fr 44px 1fr 44px 1fr;
-  column-gap: var(--space-3);
-  align-items: stretch;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
   margin-top: var(--space-6);
-  overflow-x: auto;
 }
 
 @media (max-width: 900px) {
   .case-study--ai-coding-portfolio .sa-funnel {
     grid-template-columns: 1fr;
-    column-gap: 0;
-    row-gap: var(--space-4);
-    overflow-x: visible;
-  }
-
-  .case-study--ai-coding-portfolio .sa-arrow {
-    display: none;
+    gap: var(--space-4);
   }
 }
 

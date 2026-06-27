@@ -345,9 +345,14 @@
       background: rgba(255, 255, 255, 0.72);
       color: #334155;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font: inherit;
+      outline: none;
+    }
+
+    .asd-fake-input:focus {
+      border-color: var(--asd-accent-core);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(31, 42, 104, 0.08);
     }
 
     .asd-run-btn,
@@ -791,24 +796,28 @@
 
           <div class="sa-funnel">
 
-            <article>
-              <h3>Prompts</h3>
-              <p>Clear, constrained instructions defining what to build and how</p>
+            <article class="sa-step">
+              <h3 class="sa-step-title">Prompts</h3>
+              <p class="sa-step-body">Clear, constrained instructions defining what to build and how</p>
+              <span class="sa-chip sa-chip--start">Foundation</span>
             </article>
 
-            <article>
-              <h3>Patterns</h3>
-              <p>Reusable prompt structures for common UI and interaction problems</p>
+            <article class="sa-step">
+              <h3 class="sa-step-title">Patterns</h3>
+              <p class="sa-step-body">Reusable prompt structures for common UI and interaction problems</p>
+              <span class="sa-chip">Structure</span>
             </article>
 
-            <article>
-              <h3>Components</h3>
-              <p>Reusable elements like navigation, cards, layouts, and sections</p>
+            <article class="sa-step">
+              <h3 class="sa-step-title">Components</h3>
+              <p class="sa-step-body">Reusable elements like navigation, cards, layouts, and sections</p>
+              <span class="sa-chip">Building blocks</span>
             </article>
 
-            <article>
-              <h3>Features</h3>
-              <p>Full experiences including case studies and interactive elements</p>
+            <article class="sa-step">
+              <h3 class="sa-step-title">Features</h3>
+              <p class="sa-step-body">Full experiences including case studies and interactive elements</p>
+              <span class="sa-chip sa-chip--end">Shipped</span>
             </article>
 
           </div>
@@ -829,9 +838,7 @@
           </div>
 
           <div class="asd-prompt-bar">
-            <div class="asd-fake-input" id="asdInput">
-              What has Ryan built related to AI product design?
-            </div>
+            <input type="text" class="asd-fake-input" id="asdInput" value="What has Ryan built related to AI product design?" autocomplete="off">
             <button class="asd-run-btn" id="asdRun" type="button">Run system</button>
             <button class="asd-reset-btn" id="asdReset" type="button" hidden>Reset</button>
           </div>
@@ -947,6 +954,10 @@
             const peekBtn   = document.getElementById('asdPeek');
             const caption   = document.getElementById('asdCaption');
             const internals = document.getElementById('asdInternals');
+            const inputEl   = document.getElementById('asdInput');
+            const inputNode = shell.querySelector('[data-id="input"] h3');
+            const answerEl  = shell.querySelector('[data-id="answer"] p');
+            const defaultAnswer = answerEl ? answerEl.textContent : '';
             let timerId     = null;
 
             // Helper: activate nodes/lines by data-id
@@ -998,6 +1009,12 @@
               shell.dataset.state = 'running';
               runBtn.disabled = true;
               resetBtn.hidden = true;
+
+              // Use the typed question
+              const question = inputEl.value.trim() || 'What has Ryan built related to AI product design?';
+              if (inputNode) inputNode.textContent = question;
+              if (answerEl) answerEl.textContent = defaultAnswer;
+
               let totalDelay = 0;
 
               for (let i = 0; i < steps.length; i++) {
