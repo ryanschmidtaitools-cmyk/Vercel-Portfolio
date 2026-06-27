@@ -1930,31 +1930,18 @@ code {
 /* -------------------------------------------------------
    Shared surfaces
 --------------------------------------------------------*/
-.callout,
-.case-study .validation-metrics li,
-.journey-insights li,
-.journey-solutions li,
-.case-study dl.meta,
-.case-study figure {
-  background: var(--surface-1);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-1);
-  border-radius: var(--radius-md);
-  padding: var(--space-6);
-  margin: var(--space-6) 0;
-  transition:
-    transform var(--dur-2) var(--ease-out),
-    box-shadow var(--dur-2) var(--ease-out),
-    border-color var(--dur-1) var(--ease-out),
-    background var(--dur-1) var(--ease-out);
+.case-study .callout,
+.case-study aside {
+  margin-block: var(--space-6);
 }
 
 .callout--accent {
+  padding-left: var(--space-4);
   border-left: var(--border-w-accent) solid var(--accent-92);
 }
 
 .callout--lg {
-  border-radius: var(--radius-lg);
+  padding-inline: var(--space-4);
 }
 
 .callout + .callout {
@@ -2212,13 +2199,10 @@ code {
 
 .journey-insights li,
 .journey-solutions li {
-  padding: var(--space-5);
   max-width: var(--prose);
   margin-bottom: var(--space-2);
   font-size: var(--fs-sm);
   line-height: var(--lh-md);
-  background: var(--surface-2);
-  border-radius: var(--radius-md);
 }
 
 
