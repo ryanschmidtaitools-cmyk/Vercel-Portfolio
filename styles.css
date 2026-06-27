@@ -451,6 +451,7 @@ body:not(.is-home) .site-main {
 /* Scroll anchors */
 .hero,
 .leadership-section,
+.builder-section,
 .mentorship-section,
 .about-section {
   scroll-margin-top: clamp(var(--space-4), 10vw, 72px);
@@ -466,6 +467,7 @@ body:not(.is-home) .site-main {
 /* Consistent section padding
    (fix: avoid double horizontal padding; containers handle inline padding) */
 .leadership-section,
+.builder-section,
 .mentorship-section,
 .about-section {
   padding-block: var(--page-margin, var(--space-section-md));
@@ -489,6 +491,7 @@ body:not(.is-home) .site-main {
 }
 
 .leadership-section .section-title,
+.builder-section .section-title,
 .mentorship-section .section-title,
 .about-section .section-title {
   color: var(--accent);
@@ -903,7 +906,7 @@ code {
   color: var(--text);
 }
 
-.mentorship-section {
+.builder-section {
   background: var(--bg-subtle);
   color: var(--text);
 }
@@ -966,6 +969,7 @@ code {
 
 /* Timelines become their own full-width row */
 .page-about .leadership-timeline,
+.page-about .builder-timeline,
 .page-about .mentorship-timeline {
   flex: 0 0 100%;
   width: 100%;
@@ -1165,6 +1169,7 @@ code {
 
 /* Avoid double spacing: gap handles rhythm here */
 .leadership-section .section-title,
+.builder-section .section-title,
 .mentorship-section .section-title {
   margin-bottom: 0;
 }
@@ -2638,6 +2643,7 @@ code {
 @media (max-width: 768px) {
 
   .leadership-section,
+  .builder-section,
   .mentorship-section,
   .about-section {
     padding-block: var(--space-8);
@@ -3718,6 +3724,7 @@ body.page-transitioning {
 
   /* Increase spacing for breathing room on wide screens */
   .leadership-section,
+  .builder-section,
   .mentorship-section,
   .about-section {
     padding-block: var(--space-section-lg);

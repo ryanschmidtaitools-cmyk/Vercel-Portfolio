@@ -74,16 +74,11 @@
       link.style.setProperty('--reveal-delay', `${Math.min(slidesData.length * 80, 240)}ms`);
     }
 
-    const eyebrow = document.createElement('span');
-    eyebrow.className = 'home-title__eyebrow';
-    eyebrow.setAttribute('aria-hidden', 'true');
-    eyebrow.textContent = 'Case study';
-
     const text = document.createElement('span');
     text.className = 'home-title__text';
     text.textContent = 'About';
 
-    link.append(eyebrow, text);
+    link.append(text);
     return link;
   }
 
