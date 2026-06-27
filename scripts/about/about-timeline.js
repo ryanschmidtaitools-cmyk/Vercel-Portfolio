@@ -73,7 +73,7 @@
 
     // Get accent color once — re-read only when ResizeObserver fires (theme unlikely to change)
     let accentColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--accent-cool').trim() || '#3B82F6';
+      .getPropertyValue('--accent-cool').trim() || '#4F6EF7';
 
     // ── Cached layout values — recomputed on resize only ──────────────────────
     // dot center x = left:0 on ::before + translateX(dotSize/-2 + lineThickness/2)
@@ -98,7 +98,7 @@
       ) || 14;
 
       accentColor = getComputedStyle(document.documentElement)
-        .getPropertyValue('--accent-cool').trim() || '#3B82F6';
+        .getPropertyValue('--accent-cool').trim() || '#4F6EF7';
 
       railX      = dotSize / 2; // dot center x within the list
       railTop    = firstRect.top  - listRect.top  + dotSize / 2;

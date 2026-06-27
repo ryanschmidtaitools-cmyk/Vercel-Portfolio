@@ -18,8 +18,8 @@
   /* 780px / 16 */
   --hero-max: 52rem;
   /* 640px / 16 */
-  --prose: 84ch;
-  --prose-tight: 68ch;
+  --prose: 72ch;
+  --prose-tight: 60ch;
 
   /* Spacing scale (8px base grid) */
   --space-1: 0.25rem;
@@ -128,10 +128,15 @@
   --dur-1: 120ms;
   --dur-2: 180ms;
 
-  /* === Warm neutrals (cream) === */
-  --cream-50:  #F5F6F8;
-  --cream-100: #EEF1F4;
-  --cream-200: #E2E5EA;
+  /* === Cool neutrals === */
+  --gray-50:  #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #EDEDED;
+
+  /* Legacy aliases (keep until call sites migrate) */
+  --cream-50:  var(--gray-50);
+  --cream-100: var(--gray-100);
+  --cream-200: var(--gray-200);
 
   /* Legacy aliases */
   --bg-secondary: var(--cream-100);
@@ -145,7 +150,7 @@
   /* active cards */
 
   /* Card surfaces */
-  --card-bg-strong: #E2E5EA;
+  --card-bg-strong: var(--cream-200);
 
   /* KPI system */
   --kpi-gap: 3.25rem;
@@ -169,16 +174,16 @@
 
   /* Shadows */
   --shadow-1:
-    0 1px 2px rgb(var(--rgb-outline) / 0.18),
-    0 0 0 1px rgb(var(--rgb-outline) / 0.08);
+    0 1px 3px rgb(0 0 0 / 0.08),
+    0 0 0 1px rgb(0 0 0 / 0.06);
 
   --shadow-2:
-    0 10px 28px rgb(var(--rgb-outline) / 0.22),
-    0 0 0 1px rgb(var(--rgb-outline) / 0.10);
+    0 4px 12px rgb(0 0 0 / 0.08),
+    0 0 0 1px rgb(0 0 0 / 0.06);
 
   --shadow-3:
-    0 18px 50px rgb(var(--rgb-outline) / 0.28),
-    0 0 0 1px rgb(var(--rgb-outline) / 0.12);
+    0 8px 24px rgb(0 0 0 / 0.10),
+    0 0 0 1px rgb(0 0 0 / 0.07);
 
   /* === Neutrals (slate) === */
   --slate-600: #475569;
@@ -187,24 +192,24 @@
   /* Text (APCA intent: keep small text comfortably bright) */
   --text:           var(--slate-900);
   --text-display:   var(--slate-900);
-  --text-light:     rgba(15,23,42,0.92);   /* keep for migration */
+  --text-light:     #1A1F2E;               /* keep for migration */
   --text-heading:   var(--text);
   --text-body:      var(--text-light);
   --text-secondary: var(--slate-600);
-  --text-muted:     rgba(15,23,42,0.78);
-  --text-tertiary:  rgba(15,23,42,0.65);
+  --text-muted:     #6B7280;
+  --text-tertiary:  #9CA3AF;
 
   /* Text on colored backgrounds */
   --text-on-accent: #FFFFFF;
 
-  /* === Brand accent (canonical) === */
-  --accent:            #3B82F6;
-  --accent-hover:      #2563EB;
-  --accent-bright:     #60A5FA;
-  --accent-text:       #1D4ED8;
-  --accent-text-hover: #1E40AF;
-  --accent-soft:       rgb(59 130 246 / 0.12);
-  --accent-strong:     rgb(59 130 246 / 0.24);
+  /* === Brand accent (canonical) — desaturated indigo === */
+  --accent:            #4F6EF7;
+  --accent-hover:      #3B5BDB;
+  --accent-bright:     #7B93F9;
+  --accent-text:       #2D4FC4;
+  --accent-text-hover: #1F3A8F;
+  --accent-soft:       rgb(79 110 247 / 0.12);
+  --accent-strong:     rgb(79 110 247 / 0.24);
 
   --color-primary: var(--accent);
 
@@ -212,8 +217,8 @@
   --accent-cool:        var(--accent);
   --accent-cool-bright: var(--accent-text);
   --accent-cool-soft:   var(--accent-soft);
-  --accent-92:          rgb(59 130 246 / 0.92);
-  --cool-88:            rgb(59 130 246 / 0.88);
+  --accent-92:          rgb(79 110 247 / 0.92);
+  --cool-88:            rgb(79 110 247 / 0.88);
 
   /* === Status colors === */
   --color-success:      #00C389;
@@ -225,7 +230,7 @@
 
   /* Focus */
   --focus-ring: 0 0 0 3px rgb(var(--rgb-accent-small) / 0.28);
-  --focus-outline: 2px solid #1E3A8A;
+  --focus-outline: 2px solid var(--accent-text-hover);
 
   /* Glass */
   --glass-border: rgba(255, 255, 255, 0.34);
@@ -237,15 +242,15 @@
   --ink-on-glass: #0f172a;
 
   /* Body gradient endpoint */
-  --bg-gradient-end: #E2E5EA;
+  --bg-gradient-end: var(--cream-200);
 
   /* Raw channels (lets you keep everything consistent) */
   --rgb-white: 255 255 255;
   --rgb-black: 0 0 0;
-  --rgb-blue: 59 130 246;
+  --rgb-blue: 79 110 247;
   --rgb-outline: 15 23 42;
-  --rgb-accent-small: 59 130 246;
-  --rgb-cool: 59 130 246;
+  --rgb-accent-small: 79 110 247;
+  --rgb-cool: 79 110 247;
 
   --img-frame: rgb(var(--rgb-white) / 0.16);
   --img-matte: rgb(var(--rgb-black) / 0.22);
@@ -537,7 +542,7 @@ code {
   font-size: var(--fs-control);
   font-weight: var(--weight-semibold);
   text-decoration: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   transition:
     transform var(--dur-2) var(--ease-out),
     box-shadow var(--dur-2) var(--ease-out),
@@ -1571,7 +1576,7 @@ code {
 .case-study {
   margin: 0 auto;
   padding: var(--page-margin, 0);
-  padding-inline: 8rem;
+  padding-inline: var(--page-margin);
   color: var(--text-display);
 }
 
@@ -1585,7 +1590,6 @@ code {
 .case-study .section--alt {
   background: var(--bg-subtle);
   padding-block: var(--space-5);
-  border-radius: var(--radius-lg);
 }
 
 /* Borders (outline tone) */
@@ -2191,16 +2195,11 @@ code {
 
 .case-study--ai-coding-portfolio .sa-step {
   flex: initial;
-  /* no longer needed when using grid */
   padding: var(--space-4);
-  border-radius: calc(var(--radius-md) + 6px);
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.055),
-      rgba(255, 255, 255, 0.025));
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg-strong);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -3833,15 +3832,11 @@ body.page-transitioning {
   color: var(--accent);
   transform: translateX(2px);
 }
-.hamburger-menu a:focus,
 .hamburger-menu a:focus-visible {
-  outline: none;
-  box-shadow: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
   background: transparent;
   color: var(--accent);
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
 }
 .hamburger-menu a[aria-current="page"]:focus,
 .hamburger-menu a[aria-current="page"]:focus-visible {

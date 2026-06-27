@@ -44,7 +44,7 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="application-name" content="Ryan Schmidt">
   <meta name="apple-mobile-web-app-title" content="Ryan Schmidt">
-  <meta name="theme-color" content="#EEF1F4">
+  <meta name="theme-color" content="#F5F5F5">
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,8 +186,20 @@
       box-shadow: none;
       transition: transform 180ms ease, color 180ms ease;
     }
+
+    .home-role {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
     body.is-home {
-      background: #EEF1F4 !important;
+      background: var(--bg) !important;
     }
     body.is-home::after {
       content: '';
@@ -315,7 +327,7 @@
 
     .home-title:focus {
       outline: none;
-      box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+      box-shadow: 0 0 0 4px rgb(79 110 247 / 0.12);
       border-radius: 4px;
     }
     .hamburger {
@@ -367,7 +379,7 @@
 
     .hamburger:focus-visible {
       outline: none;
-      box-shadow: 0 6px 18px rgba(2,6,23,0.28), 0 0 0 6px rgba(59,130,246,0.12);
+      box-shadow: 0 6px 18px rgba(2,6,23,0.28), 0 0 0 6px rgb(79 110 247 / 0.12);
       transform: translateY(-2px) scale(1.03);
     }
 
@@ -480,7 +492,7 @@
   
   <main id="main" class="home-gallery">
     <h1 class="sr-only">Ryan Schmidt — Senior Product Designer</h1>
-    <div class="home-logo">Ryan<br>Schmidt</div>
+    <div class="home-logo">Ryan<br>Schmidt<span class="home-role">Senior Product Designer</span></div>
 
     <div class="home-layout">
       <aside class="home-left">

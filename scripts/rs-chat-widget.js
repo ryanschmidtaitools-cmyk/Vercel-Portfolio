@@ -18,7 +18,7 @@
         display: inline-block;
         width: 0.4em;
         margin-left: 1px;
-        color: var(--accent, #3B82F6);
+        color: var(--accent, #4F6EF7);
         animation: rs-cursor-blink 1s steps(1) infinite;
       }
       @keyframes rs-cursor-blink {
@@ -132,7 +132,7 @@
       .msg.user {
         white-space: pre-wrap;
         align-self:flex-end; background: rgba(59, 130, 246, 0.2);
-        border-color: var(--accent, #3B82F6); color: #f8fafc;
+        border-color: var(--accent, #4F6EF7); color: #f8fafc;
       }
       .msg.bot {
         align-self:flex-start; background: rgba(255, 255, 255, 0.06);
@@ -169,7 +169,7 @@
       }
       .chat-card:hover {
         transform: translateY(-2px);
-        border-color: var(--accent, #3B82F6);
+        border-color: var(--accent, #4F6EF7);
       }
       .chat-card-img {
         width: 100%;
@@ -254,7 +254,7 @@
       .text:focus {
         outline: none;
         border-color: rgba(59, 130, 246, 0.5);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24), 0 0 0 2px rgba(59,130,246,0.12);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24), 0 0 0 2px rgb(79 110 247 / 0.12);
         background: rgba(6, 12, 22, 1);
       }
       .text::placeholder { color: rgba(255,255,255,0.45); font-weight: var(--weight-regular, 400); line-height: 54px; }
@@ -268,7 +268,7 @@
         border-radius: 14px;
         width: 40px;
         height: 40px;
-        background: var(--accent, #3B82F6);
+        background: var(--accent, #4F6EF7);
         color: var(--text-on-accent, #ffffff);
         border: none;
         font-size: 1.05rem;
@@ -281,7 +281,7 @@
       }
       .send:hover {
         transform: translateY(-1px);
-        background: var(--accent-hover, #2563EB);
+        background: var(--accent-hover, #3B5BDB);
       }
 
 
@@ -303,7 +303,7 @@
         margin: var(--space-3, .75rem) 0 var(--space-2, .5rem);
         padding: var(--space-4, 1rem);
         background: linear-gradient(135deg, rgba(59, 130, 246,.13), rgba(37, 99, 235,.06));
-        border: 1px solid var(--accent, #3B82F6);
+        border: 1px solid var(--accent, #4F6EF7);
         border-radius: var(--radius-md, 12px);
         text-align: center;
         position: relative;
@@ -384,8 +384,8 @@
         text-decoration-color: rgba(255, 255, 255, 0.20);
       }
       .chat-sources-list a:hover {
-        color: var(--accent, #3B82F6);
-        text-decoration-color: var(--accent, #3B82F6);
+        color: var(--accent, #4F6EF7);
+        text-decoration-color: var(--accent, #4F6EF7);
       }
 
       /* Dynamic loading state */
@@ -401,7 +401,7 @@
         width: 14px;
         height: 14px;
         border-radius: 50%;
-        background: var(--accent, #3B82F6);
+        background: var(--accent, #4F6EF7);
         animation: orb-pulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
       }
@@ -423,7 +423,7 @@
         display: inline-block;
         width: 6px;
         height: 1.1em;
-        background-color: var(--accent, #3B82F6);
+        background-color: var(--accent, #4F6EF7);
         vertical-align: text-bottom;
         margin-left: 4px;
         animation: blink 1s step-end infinite;
