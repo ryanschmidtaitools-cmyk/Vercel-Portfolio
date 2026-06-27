@@ -1581,7 +1581,14 @@ code {
   box-shadow: none;
 }
 
-/* Section heading spacing rules */
+/* Alternating section backgrounds */
+.case-study .section--alt {
+  background: var(--bg-subtle);
+  padding-block: var(--space-5);
+  border-radius: var(--radius-lg);
+}
+
+/* Borders (outline tone) */
 .case-study section>h2:first-child,
 .case-study section>h3:first-child {
   margin-top: var(--space-5);
