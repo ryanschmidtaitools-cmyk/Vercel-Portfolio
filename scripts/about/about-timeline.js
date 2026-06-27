@@ -43,12 +43,12 @@
     }
 
     @keyframes _dot-pulse {
-      0%, 100% { box-shadow: 0 0 0 0px rgba(59, 130, 246, 0.45); }
-      50%       { box-shadow: 0 0 0 5px rgba(59, 130, 246, 0); }
+      0%, 100% { box-shadow: 0 0 0 0px rgba(79, 110, 247, 0.45); }
+      50%       { box-shadow: 0 0 0 5px rgba(79, 110, 247, 0); }
     }
     @keyframes _dot-pulse-current {
-      0%, 100% { box-shadow: 0 0 0 0px rgba(59, 130, 246, 0.6); }
-      50%       { box-shadow: 0 0 0 7px rgba(59, 130, 246, 0); }
+      0%, 100% { box-shadow: 0 0 0 0px rgba(79, 110, 247, 0.6); }
+      50%       { box-shadow: 0 0 0 7px rgba(79, 110, 247, 0); }
     }
 
     .timeline-list.has-canvas-rail .timeline-item::before {

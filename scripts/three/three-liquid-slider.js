@@ -69,7 +69,7 @@
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 1024, 1024);
 
-    ctx.strokeStyle = 'rgba(59, 130, 246, 0.2)';
+    ctx.strokeStyle = 'rgba(79, 110, 247, 0.2)';
     ctx.lineWidth = 2;
     for (let i = 0; i < 1024; i += 64) {
       ctx.beginPath();
@@ -82,7 +82,7 @@
       ctx.stroke();
     }
     
-    ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+    ctx.fillStyle = 'rgba(79, 110, 247, 0.5)';
     ctx.beginPath();
     ctx.arc(512, 512, 200, 0, Math.PI * 2);
     ctx.fill();

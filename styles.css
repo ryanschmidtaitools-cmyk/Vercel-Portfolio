@@ -12,8 +12,6 @@
   --page-gutter: clamp(var(--space-4), 4vw, var(--space-6));  /* 16 → 32px */
   --container-max: 88rem;
   /* 1200px / 16 */
-  --case-max: 65rem;
-  /* 1040px / 16 */
   --impact-callout-max: 48.75rem;
   /* 780px / 16 */
   --hero-max: 52rem;
@@ -328,7 +326,7 @@ html.lenis body {
 
 /* Global Selection Highlight */
 ::selection {
-  background-color: var(--accent-soft, rgba(59, 130, 246, 0.2));
+  background-color: var(--accent-soft, rgba(79, 110, 247, 0.2));
   color: var(--text-display, #0f172a);
 }
 
@@ -1060,8 +1058,8 @@ code {
 }
 
 @keyframes dot-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  50%       { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 110, 247, 0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(79, 110, 247, 0); }
 }
 
 .timeline-date {
@@ -1224,7 +1222,7 @@ code {
   position: relative;
   max-width: none;
   background:
-    radial-gradient(800px 280px at 10% 10%, rgba(59, 130, 246, 0.05), transparent 55%),
+    radial-gradient(800px 280px at 10% 10%, rgba(79, 110, 247, 0.05), transparent 55%),
     var(--surface-1);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -1427,8 +1425,6 @@ code {
   :root {
     --container-max: 90rem;
     /* 1440px */
-    --case-max:     70rem;
-    /* 1120px */
     --hero-max:     55rem;
     /* 880px */
     --fs-body: 17px;
@@ -1454,8 +1450,6 @@ code {
   :root {
     --container-max: 100rem;
     /* 1600px */
-    --case-max:     75rem;
-    /* 1200px */
     --hero-max:     56rem;
     /* 896px */
     --fs-body: 18px;
@@ -1581,7 +1575,7 @@ code {
 .case-study {
   margin: 0 auto;
   padding: var(--page-margin, 0);
-  padding-inline: 10rem;
+  padding-inline: var(--page-gutter);
   color: var(--text-display);
 }
 
@@ -1652,8 +1646,8 @@ code {
 .case-study blockquote {
   margin: var(--space-6) 0;
   padding: var(--space-5) var(--space-6);
-  border-left: var(--border-w-accent) solid rgba(59, 130, 246, 0.70);
-  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-1);
   border-radius: var(--radius-md);
   color: var(--text-body);
   max-width: var(--prose);
@@ -1775,7 +1769,7 @@ code {
 
 /* Section spacing */
 .case-study section {
-  max-width: var(--case-max);
+  max-width: var(--prose);
   margin-inline: auto;
   margin-top: var(--space-6);
 }
@@ -1895,8 +1889,9 @@ code {
 }
 
 .case-study .tldr {
-  margin: 0 0 var(--space-5);
+  margin: 0 auto var(--space-5);
   padding: 0;
+  max-width: var(--prose);
 }
 
 .case-study .tldr h1 {
@@ -1923,7 +1918,7 @@ code {
   margin-top: var(--space-6);
   padding: var(--space-5) var(--space-6);
   border-radius: var(--radius-md);
-  background: rgba(0, 0, 0, 0.16);
+  background: var(--surface-1);
   border: 1px solid var(--border);
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
@@ -2010,9 +2005,8 @@ code {
   justify-content: center;
   gap: clamp(var(--space-5), 5vw, 3.25rem);
   max-width: var(--impact-callout-max);
-  background: var(--surface-2);
+  background: var(--surface-1);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-1);
   border-radius: var(--radius-md);
 }
 
@@ -2050,7 +2044,7 @@ code {
   margin: var(--space-6) 0;
   padding: var(--space-6);
   border-radius: var(--radius-md);
-  background: var(--surface-1);
+  background: transparent;
 }
 
 @media (max-width: 640px) {
@@ -2075,8 +2069,7 @@ code {
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--surface-1);
-  border: 1px solid var(--img-frame);
-  box-shadow: var(--shadow-2);
+  border: 1px solid var(--border-subtle);
   position: relative;
 }
 
@@ -2399,7 +2392,7 @@ code {
 .dh {
   margin: calc(var(--space-8) * 1.1) 0 var(--space-8);
   background:
-    radial-gradient(900px 420px at 12% 0%, rgba(59, 130, 246, 0.06), transparent 55%),
+    radial-gradient(900px 420px at 12% 0%, rgba(79, 110, 247, 0.06), transparent 55%),
     rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-1);
@@ -2714,10 +2707,10 @@ code {
   --ask-grad: linear-gradient(135deg, #202831 0%, #2b3848 100%);
   --ask-ink: var(--text);
 
-  --ask-glow: 0 10px 22px -14px rgba(59, 130, 246, 0.25);
-  --ask-glow-soft: 0 8px 18px -16px rgba(59, 130, 246, 0.16);
+  --ask-glow: 0 10px 22px -14px rgba(79, 110, 247, 0.25);
+  --ask-glow-soft: 0 8px 18px -16px rgba(79, 110, 247, 0.16);
 
-  --ask-pulse: rgba(59, 130, 246, 0.16);
+  --ask-pulse: rgba(79, 110, 247, 0.16);
 }
 
 /* --- Container / hit area --- */
@@ -2902,7 +2895,7 @@ body.is-home .ask-trigger {
   top: 0;
   left: 0;
   height: 4px;
-  background: var(--accent-cool, #3B82F6);
+  background: var(--accent-cool, #4F6EF7);
   width: 0%;
   z-index: 9999;
   transform-origin: left;
@@ -3024,7 +3017,7 @@ body.page-transitioning {
 }
 
 .metric-clip-btn:hover {
-  color: var(--accent, #3B82F6);
+  color: var(--accent, #4F6EF7);
   transform: scale(1.15);
 }
 
@@ -3229,8 +3222,8 @@ body.page-transitioning {
 
 [data-spotlight] [data-spotlight-item]:hover,
 [data-spotlight] [data-spotlight-item].is-active {
-  background: rgba(59, 130, 246, .12);
-  border-color: rgba(59, 130, 246, .32);
+  background: rgba(79, 110, 247, .12);
+  border-color: rgba(79, 110, 247, .32);
   color: var(--accent);
   transform: translateY(-1px);
 }
@@ -3534,7 +3527,7 @@ body.page-transitioning {
 
 .circular-progress-value {
   fill: none;
-  stroke: var(--accent, #3b82f6);
+  stroke: var(--accent, #4F6EF7);
   stroke-width: 2.5;
   stroke-linecap: round;
   transition: stroke-dashoffset 0.1s ease-out;
@@ -3766,7 +3759,7 @@ body.page-transitioning {
 }
 .hamburger:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16), 0 28px 72px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 0 0 4px rgba(79, 110, 247, 0.16), 0 28px 72px rgba(0, 0, 0, 0.28);
 }
 .hamburger-inner {
   position: relative;
@@ -3999,7 +3992,7 @@ body.page-transitioning {
 }
 .ai-mini-send:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+  box-shadow: 0 0 0 4px rgba(79, 110, 247, 0.16);
 }
 
 /* =====================================================
