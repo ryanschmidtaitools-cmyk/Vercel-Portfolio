@@ -1,5 +1,4 @@
 {
-    "permissions": [
-      {"permission": "*", "action": "allow", "pattern": "*"}
-    ]
-  }
+  "$schema": "https://opencode.ai/config.json",
+  "permission": "allow"
+}

@@ -853,14 +853,11 @@
     if (!items.length) return;
 
     items.forEach((item) => {
-      item.addEventListener("mouseenter", () => {
-        items.forEach((el) => el.classList.toggle("is-active", el === item));
-      });
-      item.addEventListener("focus", () => {
-        items.forEach((el) => el.classList.toggle("is-active", el === item));
-      });
-      item.addEventListener("mouseleave", () => {
-        items.forEach((el) => el.classList.remove("is-active"));
+      item.addEventListener("click", () => {
+        items.forEach((el) => {
+          el.classList.toggle("is-active", el === item);
+          el.setAttribute('aria-selected', el === item ? 'true' : 'false');
+        });
       });
     });
   });
@@ -891,4 +888,17 @@
       })
     }).catch(() => {});
   });
+
+  const systemInput = document.querySelector('.asd-fake-input');
+  if (systemInput) {
+    const originalPlaceholder = systemInput.getAttribute('placeholder');
+    systemInput.addEventListener('focus', () => {
+      systemInput.setAttribute('placeholder', '');
+    });
+    systemInput.addEventListener('blur', () => {
+      if (!systemInput.value.trim()) {
+        systemInput.setAttribute('placeholder', originalPlaceholder);
+      }
+    });
+  }
 })();

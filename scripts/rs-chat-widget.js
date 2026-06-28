@@ -53,9 +53,9 @@
 
       /* Drawer */
       .panel {
-        position: fixed; top: auto; right: 18px; bottom: 18px;
-        width: min(440px, calc(100vw - 36px));
-        height: 112px;
+        position: fixed; top: auto; right: 12px; bottom: 12px;
+        width: min(444px, calc(100vw - 24px));
+        height: 80px;
         display: flex; flex-direction: column;
         justify-content: flex-end;
         background: var(--surface-dark-glass);
@@ -228,7 +228,7 @@
         display: flex;
         align-items: center;
         gap: 0;
-        padding: var(--space-3, .75rem) var(--space-3, .75rem) 0;
+        padding: var(--space-3, .75rem);
         background: transparent;
         box-sizing: border-box;
         position: relative;
@@ -611,10 +611,10 @@ if (savedHist.length > 0) {
       const miniWrapper = document.querySelector('.ai-mini-wrapper');
       if (miniWrapper) gsap.to(miniWrapper, { opacity: 0, duration: 0.2, ease: "power2.out" });
 
-      const fullHeight = window.innerHeight - 36;
+      const fullHeight = window.innerHeight - 24;
 
       gsap.fromTo(panel,
-        { height: 112 },
+        { height: 80 },
         { height: fullHeight, duration: 0.6, ease: "power3.inOut" }
       );
 
@@ -625,7 +625,7 @@ if (savedHist.length > 0) {
       );
     } else {
       // Fallback: ensure panel has full height without GSAP
-      panel.style.height = `${window.innerHeight - 36}px`;
+      panel.style.height = `${window.innerHeight - 24}px`;
     }
 
     (inputEl || panel)?.focus?.();
@@ -643,7 +643,7 @@ if (savedHist.length > 0) {
       gsap.to(childrenToAnimate, { y: 15, opacity: 0, duration: 0.25, ease: "power2.in" });
 
       gsap.to(panel, {
-        height: 112,
+        height: 80,
         duration: 0.5,
         ease: "power3.inOut",
         onComplete: () => {

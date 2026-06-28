@@ -267,14 +267,8 @@
 </head>
 
   <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
-
     <main id="main" class="site-main">
-      <!-- Two-column layout: text left, sticky 3D canvas right -->
-      <div class="dashboard-3d-layout">
-        <!-- Left: scrollable case study text -->
-        <div class="dashboard-3d-text">
-          <article class="case-study" aria-labelledby="title">
+      <article class="case-study" aria-labelledby="title">
             <header class="tldr" aria-label="Executive summary">
               <h1 id="title" data-parallax="0.06">AI-Powered Custom Dashboards</h1>
           <p class="lead">
@@ -318,7 +312,9 @@
         </header>
 
         <section aria-label="Problem & goals">
-          <h2 data-reveal>Problem</h2>
+          <div class="section-divider">
+            <h2 data-reveal>Problem</h2>
+          </div>
           <p>
             Teams submitted endless ad‑hoc report requests, and ignored the dashboards we had in place. 
             This slowed user's decision‑making, increased their reporting overhead, and made the product look less enterprise‑ready in demos.
@@ -368,7 +364,7 @@
           </div>
         </section>
         
-        <aside class="callout">
+        <aside class="callout what-i-got-wrong-card">
           <h3>What I got wrong first</h3>
           <p>
             I initially designed the dashboard around a single, comprehensive view — thinking power users would want everything in one place. Research showed the opposite: teams wanted role-specific views they could switch between, not a wall of KPIs. The MVP shipped with templates instead of a monolithic dashboard, which drove the +71% engagement lift.
@@ -407,7 +403,9 @@
 
 
         <section aria-label="Design highlights">
-          <h2>Design Highlights</h2>
+          <div class="section-divider">
+            <h2>Design Highlights</h2>
+          </div>
 
           <div class="dh-carousel" role="region" aria-roledescription="carousel" aria-label="Design highlights">
             <button class="dh-nav dh-prev" aria-label="Previous slide" type="button">‹</button>
@@ -521,8 +519,6 @@
         </section>
 
           </article>
-        </div><!-- /.dashboard-3d-text -->
-      </div><!-- /.dashboard-3d-layout -->
     </main>
 
     <!-- Fixed floating bottom nav -->
