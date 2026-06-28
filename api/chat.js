@@ -1865,13 +1865,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const useGrok = XAI_API_KEY && XAI_API_KEY.trim() !== "";
-  const useGemini = !useGrok && GEMINI_API_KEY && GEMINI_API_KEY.trim() !== "";
+  const useGemini = GEMINI_API_KEY && GEMINI_API_KEY.trim() !== "";
+  const useGrok = !useGemini && XAI_API_KEY && XAI_API_KEY.trim() !== "";
 
-  if (!useGrok && !useGemini) {
+  if (!useGemini && !useGrok) {
     return res.status(500).json(
       assistantPayload({
-        answer: "Chat is not configured. Add XAI_API_KEY in Vercel \u2192 Project Settings \u2192 Environment Variables."
+        answer: "Chat is not configured. Add GEMINI_API_KEY in Vercel \u2192 Project Settings \u2192 Environment Variables."
       })
     );
   }
@@ -1976,15 +1976,15 @@ export default async function handler(req, res) {
     }
 
     let modelOutput;
-    if (useGrok) {
-      modelOutput = await callGrok(SYSTEM_PROMPT, augmentedMessages, webSnippets, kb, answerStyle, {
+    if (useGemini) {
+      modelOutput = await callGemini(SYSTEM_PROMPT, augmentedMessages, webSnippets, kb, answerStyle, {
         pageUrl: pageContext?.url || "",
         sectionContext,
         useFitModel: isFit,
         lastUserOverride: lastUser
       });
     } else {
-      modelOutput = await callGemini(SYSTEM_PROMPT, augmentedMessages, webSnippets, kb, answerStyle, {
+      modelOutput = await callGrok(SYSTEM_PROMPT, augmentedMessages, webSnippets, kb, answerStyle, {
         pageUrl: pageContext?.url || "",
         sectionContext,
         useFitModel: isFit,
