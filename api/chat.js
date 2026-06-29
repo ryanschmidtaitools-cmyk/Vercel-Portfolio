@@ -1873,8 +1873,7 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
       temperature,
       topP: 0.9,
       topK: 32,
-      maxOutputTokens,
-      responseMimeType: "application/json"
+      maxOutputTokens
     }
   };
 
@@ -2187,7 +2186,7 @@ export default async function handler(req, res) {
     const metricAllowlist = buildMetricAllowlist(kb);
     let rawAnswer = modelOutput.answer;
     if (typeof rawAnswer === "string" && rawAnswer.trim().startsWith("{") && rawAnswer.includes('"answer"')) {
-      try { const parsed = JSON.parse(rawAnswer); if (parsed && typeof parsed.answer === "string") rawAnswer = parsed.answer; } catch {}
+      try { const parsed = JSON.parse(rawAnswer); if (parsed && typeof parsed.answer === "string") rawAnswer = parsed.answer; } catch (e) { console.warn(`double-json unwrap failed: ${e?.message}`); }
     }
     const answer = polishAnswerText(validateAnswerMetrics(rawAnswer, metricAllowlist));
     const suggested_pills = Array.isArray(modelOutput.suggested_pills) && modelOutput.suggested_pills.length
