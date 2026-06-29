@@ -1553,10 +1553,6 @@ code {
   gap: var(--space-6);
 }
 
-.case-study .callout.research-grid {
-  padding: var(--space-5) var(--space-4);
-}
-
 .research-column ul {
   list-style: none;
   padding-left: 0;
