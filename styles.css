@@ -3382,6 +3382,7 @@ body.page-transitioning {
   box-shadow: var(--shadow-card);
   padding: var(--space-5);
   margin-top: var(--space-5);
+  margin-bottom: var(--space-5);
 }
 
 [data-compare] .compare-tabs {
@@ -3431,26 +3432,13 @@ body.page-transitioning {
   box-shadow: var(--shadow-card);
   padding: var(--space-5);
   margin-top: var(--space-5);
+  margin-bottom: var(--space-5);
 }
 
 [data-spotlight] .spotlight-grid {
   display: flex;
   flex-wrap: wrap;
   gap: .75rem;
-}
-
-[data-spotlight] .spotlight-item {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 180px;
-  min-width: 0;
-}
-
-[data-spotlight] .spotlight-desc {
-  margin-top: var(--space-2);
-  font-size: var(--fs-sm, 14px);
-  color: var(--text-secondary);
-  line-height: 1.5;
 }
 
 [data-spotlight] [data-spotlight-item] {
@@ -4165,7 +4153,7 @@ body.page-transitioning {
   height: 56px;
   width: min(420px, calc(100vw - 84px));
   max-width: min(420px, calc(100vw - 84px));
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: rgba(6, 12, 22, 1);
   font: inherit;
@@ -4198,7 +4186,7 @@ body.page-transitioning {
   width: 40px;
   height: 40px;
   border: none;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   background: var(--accent-hover);
   color: #FFFFFF;
   cursor: pointer;

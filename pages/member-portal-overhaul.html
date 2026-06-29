@@ -257,16 +257,16 @@
         <header class="tldr" aria-label="Executive summary">
           <h1 id="title" data-parallax="0.06">Member Portal Redesign</h1>
           <p class="lead">
-            For a research membership business, navigation is not just wayfinding — it is how members perceive the value of the product. If members cannot quickly reach the right reports, benchmarks, or peer insights, the content can be strong and still feel inaccessible.
-            <br><br>I'm redesigning the portal's IA and navigation end-to-end — restructuring four levels of content hierarchy, aligning the UI to a validated content model, and shipping an MVP while a parallel rebrand adds real constraint.
+            For a research membership business, navigation is how members perceive the value of the product. If members can't quickly reach the right reports, benchmarks, or peer insights, the content can be strong and still feel inaccessible.
+            <br><br>I'm redesigning the portal's IA, navigation, and overall design end-to-end — restructuring four levels of content hierarchy, aligning the UI to a validated content model, and shipping an MVP while a parallel rebrand adds real constraint.
           </p>
 
           <div class="tldr-meta">
             <div class="tldr-role">
               <p class="tldr-label label" data-reveal>My role</p>
               <p>
-                <strong>Lead UX Designer (sole designer)</strong> <br>
-                Owning IA, navigation design, and homepage entry point — partnering with product, engineering, and a third-party rebrand consultant.
+                <strong>Lead UX Designer/PM (sole designer)</strong> <br>
+                Owning IA, designs, and project management — partnering with product, engineering, and a third-party rebrand consultant.
               </p>
             </div>
 
@@ -275,7 +275,7 @@
               <ul class="kpis kpis--hero">
                 <li>
                   <strong class="metric">In Progress</strong>
-                  <span class="metric-label">designs complete,<br>pre-ship</span>
+                  <span class="metric-label">designs complete,<br>in staging for QA</span>
                 </li>
                 <li>
                   <strong class="metric">July</strong>
@@ -284,19 +284,7 @@
               </ul>
             </div>
           </div>
-
-          <dl class="meta meta--inline">
-            <dt class="label">Product</dt>
-            <dd>Membership portal for enterprise HR leaders and chief people officers</dd>
-
-            <dt class="label">Org &amp; team</dt>
-            <dd>Sole designer; partnering with product, engineering, and a third-party rebrand consultant</dd>
-
-            <dt class="label">Scope</dt>
-            <dd>IA restructure, navigation redesign, homepage entry point, content taxonomy alignment, tokenized component mapping</dd>
-          </dl>
         </header>
-
 
         <section aria-label="Problem & goals">
           <div class="section-divider">
@@ -323,20 +311,10 @@
             <h2>Research</h2>
           </div>
           <p>
-            The taxonomy itself was not something I needed to reinvent. The more important design problem was translation: how to make that validated structure visible and usable inside the product. I mapped the taxonomy against the current navigation, identified where labels and hierarchy broke down, and designed a navigation model that exposed the right level of depth at the right moment.
+            The taxonomy itself was not something I needed to reinvent. Our researchers identified a new taxonomy and was in progress with it when I joined. 
+            The design problem was translation: how to make that validated 4-level structure visible and usable inside the product. 
+            I designed a navigation model that exposed the right level of depth at the right moment.
           </p>
-          <ul>
-            <li><strong>Analytics review:</strong> Identified where members dropped off, what they searched for, and which sections went largely unvisited</li>
-            <li><strong>Member feedback synthesis:</strong> Reviewed existing NPS themes and support feedback to surface recurring navigation pain points</li>
-            <li><strong>Prior research review:</strong> Mapped the validated taxonomy against the existing navigation to identify structural mismatches</li>
-          </ul>
-
-          <aside class="callout">
-            <h3>Key finding</h3>
-            <p>
-              Members understood i4cp's content model conceptually — they knew there were practice areas and topics. The navigation just didn't surface that model clearly enough to act on it. The problem wasn't awareness; it was legibility.
-            </p>
-          </aside>
 
           <p>Moderated validation testing with active members is planned for July, focused on task success across the four IA levels.</p>
         </section>
@@ -351,25 +329,18 @@
           </p>
           <div data-spotlight aria-label="IA explorer">
             <div class="spotlight-grid">
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Areas of Focus">Areas of Focus</button>
-                <p class="spotlight-desc">The broadest practice domains (e.g. leadership, talent, culture)</p>
-              </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Priorities">Priorities</button>
-                <p class="spotlight-desc">The strategic questions within each area</p>
-              </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Topics">Topics</button>
-                <p class="spotlight-desc">Specific subject clusters within each priority</p>
-              </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Individual content">Individual content</button>
-                <p class="spotlight-desc">Articles, videos, webinars, benchmarks</p>
-              </div>
+              <button type="button" data-spotlight-item aria-label="Areas of Focus">Areas of Focus</button>
+              <button type="button" data-spotlight-item aria-label="Priorities">Priorities</button>
+              <button type="button" data-spotlight-item aria-label="Topics">Topics</button>
+              <button type="button" data-spotlight-item aria-label="Individual content">Individual content</button>
             </div>
-            <p class="spotlight-copy">Explore how the portal’s IA moves from broad practice areas to specific content without overwhelming members.</p>
           </div>
+          <ul>
+            <li><strong>Areas of Focus</strong> — the broadest practice domains (e.g. leadership, talent, culture)</li>
+            <li><strong>Priorities</strong> — the strategic questions within each area</li>
+            <li><strong>Topics</strong> — specific subject clusters within each priority</li>
+            <li><strong>Individual content</strong> — articles, videos, webinars, benchmarks</li>
+          </ul>
           <p>
             For example, a member looking for leadership succession benchmarking might start with Leadership as a broad area, narrow into a strategic priority, scan related topics, and then choose between reports, benchmarks, webinars, or peer discussion content. The navigation needed to support that narrowing path without exposing the entire taxonomy at once.
           </p>
@@ -410,16 +381,13 @@
               <strong>Parallel rebrand:</strong> A third-party consultant was evolving i4cp's visual identity at the same time. Ideally we'd have built new tokenized variables in Figma and CSS from scratch — due to timeline constraints, we had to map to the existing token structure instead. Not the cleanest approach, but it kept both workstreams moving without blocking each other.
             </li>
             <li>
-              <strong>MVP scope:</strong> A full IA overhaul touches nearly every surface of the portal. I phased the work deliberately — the MVP ships the restructured navigation and homepage entry point first, with deeper content surface improvements to follow. The goal was to ship something meaningfully better without waiting for every surface to be right.
+              <strong>MVP scope:</strong> A full IA overhaul touches nearly every surface of the portal. 
+              I phased the work deliberately — the MVP ships the restructured navigation and a completely refreshed look and feel, with small to moderate UX improvements.
+              Deeper UX improvements to follow post-MVP, with designs and tickets already ready to go. 
+              The goal was to ship something meaningfully better and more useful without waiting for every surface to be perfect.
             </li>
           </ul>
 
-          <aside class="callout">
-            <h3>What the data couldn't tell us</h3>
-            <p>
-              Analytics showed where members dropped off but not why. I ran a remote card sort with 8 members to test whether the taxonomy labels actually matched how they grouped content. The results confirmed the hierarchy was sound — but revealed that members used different terminology for the same topics depending on their role. That finding directly shaped the navigation labels, which now prioritize member language over internal taxonomy names.
-            </p>
-          </aside>
         </section>
 
 
@@ -477,8 +445,7 @@
             <h2>Current status</h2>
           </div>
           <ul>
-            <li><strong>Designs complete:</strong> navigation, homepage entry point, and core content surfaces.</li>
-            <li><strong>Engineering handoff:</strong> in progress.</li>
+            <li><strong>Designs complete:</strong> All shippable designs are complete and in the dev's hands.</li>
             <li><strong>Validation:</strong> moderated member testing planned for July.</li>
             <li><strong>Outcomes:</strong> not available yet; this case study will be updated after validation and launch data are available.</li>
           </ul>
