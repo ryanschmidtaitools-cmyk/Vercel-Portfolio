@@ -1945,8 +1945,17 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
     } catch {}
   }
 
-  if (typeof result.answer === "string" && result.answer.trim().startsWith("{") && result.answer.includes('"answer"')) {
-    result.answer = "DEBUG: textRaw=" + JSON.stringify(textRaw.slice(0, 300)) + " | result.answer=" + JSON.stringify(result.answer.slice(0, 200));
+  // Debug: if answer is suspicious, include raw response info
+  if (typeof result.answer === "string" && result.answer.trim().startsWith("{")) {
+    const debugInfo = {
+      len: result.answer.length,
+      textRaw: String(textRaw).slice(0, 400),
+      resultAnswer: String(result.answer).slice(0, 200),
+      hasCandidates: !!data?.candidates?.length,
+      partsCount: Array.isArray(parts) ? parts.length : (parts ? "non-array" : "none"),
+      partsType: parts ? typeof parts : "undefined"
+    };
+    result.answer = `DEBUG ${JSON.stringify(debugInfo)}`;
   }
 
   return result;
