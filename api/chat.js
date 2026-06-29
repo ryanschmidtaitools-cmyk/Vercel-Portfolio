@@ -1900,23 +1900,53 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
   if (!resp.ok) throw new Error(`Gemini error: ${resp.status} ${await resp.text()}`);
 
   const data = await resp.json();
-  const parts = data?.candidates?.[0]?.content?.parts;
-  const text = Array.isArray(parts)
+  const candidate = data?.candidates?.[0]?.content;
+  const parts = candidate?.parts;
+  const textRaw = Array.isArray(parts)
     ? parts.map(p => p && p.text).filter(Boolean).join("\n")
-    : (data?.candidates?.[0]?.content?.parts?.[0]?.text || "");
+    : (candidate?.parts?.[0]?.text || "");
 
-  const result = parseGeminiOutput(text, pickedCases, kb, isFit);
+  if (!textRaw || textRaw.trim().startsWith("{") === false) {
+    console.warn(`callGemini: textRaw empty or not JSON: "${String(textRaw).slice(0,200)}" parts_count=${Array.isArray(parts) ? parts.length : "N/A"}`);
+  }
 
-  // Debug: detect if answer is still raw JSON
-  let debugAnswer = result.answer;
-  if (typeof debugAnswer === "string" && debugAnswer.trim().startsWith("{") && debugAnswer.includes('"answer"')) {
-    const extracted = safeExtractAnswer(debugAnswer);
+  const result = parseGeminiOutput(textRaw, pickedCases, kb, isFit);
+
+  let answerText = result.answer;
+  if (typeof answerText === "string" && answerText.trim().startsWith("{") && answerText.includes('"answer"')) {
+    const extracted = safeExtractAnswer(answerText);
     if (extracted) {
-      console.warn(`Gemini JSON unwrap: answer was raw JSON, extracted successfully`);
       result.answer = extracted;
     } else {
-      console.warn(`Gemini JSON unwrap FAILED: raw="${debugAnswer.slice(0,200)}" text="${text.slice(0,300)}"`);
+      // answer is probably the raw textRaw itself — parse directly
+      const directAttempt = safeExtractAnswer(textRaw);
+      if (directAttempt) {
+        result.answer = directAttempt;
+      }
     }
+  }
+
+  // Safety: if answer still looks like raw JSON, force-extract from textRaw
+  if (typeof result.answer === "string" && result.answer.trim().startsWith("{") && result.answer.includes('"answer"')) {
+    const forced = safeExtractAnswer(textRaw);
+    if (forced) result.answer = forced;
+  }
+
+  // Final fallback: manually parse textRaw into the expected output fields
+  if (typeof result.answer === "string" && result.answer.trim().startsWith("{") && result.answer.includes('"answer"')) {
+    try {
+      const extracted = extractJsonFromText(textRaw);
+      const parsed = JSON.parse(extracted);
+      if (parsed && typeof parsed.answer === "string") {
+        result.answer = parsed.answer;
+        if (Array.isArray(parsed.suggested_pills)) result.suggested_pills = parsed.suggested_pills;
+        if (Array.isArray(parsed.context_cases)) result.context_cases = parsed.context_cases;
+      }
+    } catch {}
+  }
+
+  if (typeof result.answer === "string" && result.answer.trim().startsWith("{") && result.answer.includes('"answer"')) {
+    result.answer = "DEBUG: textRaw=" + JSON.stringify(textRaw.slice(0, 300)) + " | result.answer=" + JSON.stringify(result.answer.slice(0, 200));
   }
 
   return result;
