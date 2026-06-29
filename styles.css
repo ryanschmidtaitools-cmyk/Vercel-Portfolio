@@ -1553,7 +1553,7 @@ code {
   gap: var(--space-6);
 }
 
-.research-column ul {
+.research-grid .research-column ul {
   list-style: none;
   padding-left: 0;
   padding-inline-start: 0;
