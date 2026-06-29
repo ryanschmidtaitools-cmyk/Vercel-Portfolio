@@ -276,7 +276,7 @@
             <h1 id="title" data-parallax="0.06">AI-Coding my Portfolio</h1>
 
           <p class="lead">
-            I rebuilt my portfolio from scratch using AI coding tools like Cursor, Gemini, and Antigravity. 
+            I rebuilt my portfolio from scratch using AI coding tools like Cursor, OpenCode, and Antigravity. 
             The goal wasn’t just a new site. It was to learn how to go from UX design to shipped product faster, 
             without relying on an engineer.
           </p>
@@ -307,7 +307,7 @@
             <dd>HTML, CSS, JavaScript, Next.js (partial), Three.js (experimental)</dd>
 
             <dt>Tools</dt>
-            <dd>Cursor, Gemini, OpenCode CLI, Vercel, Github, Supabase</dd>
+            <dd>Cursor, Antigravity, OpenCode CLI, Vercel, Github, Supabase</dd>
 
             <dt>Scope</dt>
             <dd>Design, front-end architecture, AI workflow, and implementation</dd>
@@ -326,7 +326,8 @@
 
           <p>
             I wanted this portfolio to prove I can build, not just design. The question was whether AI
-            tools could get me there without an engineering team behind me.
+            tools could get me there without an engineering team behind me. 
+            Even more, I wanted to design an AI experience unrestrained by deadlines or priorities at my day job.
           </p>
 
           <h3>Goals</h3>
@@ -351,8 +352,8 @@
 
           <ul>
             <li><strong>Cursor:</strong> Primary development environment</li>
-            <li><strong>Gemini:</strong> Debugging, reasoning, and problem-solving</li>
-            <li><strong>Antigravity:</strong> Exploring alternate implementations</li>
+            <li><strong>OpenCode:</strong> Debugging, reasoning, problem-solving, and deployment</li>
+            <li><strong>Antigravity:</strong> Creating .md files to improve agent reasoning and code output</li>
           </ul>
 
           <p>
@@ -509,10 +510,6 @@
               <span>vector search</span>
             </div>
           </div>
-
-          <div class="asd-caption" id="asdCaption" aria-live="polite">
-            <span>Press <strong>Run system</strong> to trace a question through the pipeline.</span>
-          </div>
         </section>
 
         <script>
@@ -530,6 +527,21 @@
             const answerEl  = shell.querySelector('[data-id="answer"] p');
             const defaultAnswer = answerEl ? answerEl.textContent : '';
             let timerId     = null;
+
+            async function fetchAnswer(question) {
+              const chatApi = window.RS_CHAT_API || '/api/chat';
+              try {
+                const res = await fetch(chatApi, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ message: question, url: location.pathname })
+                });
+                const data = await res.json();
+                return data.answer || 'No answer available.';
+              } catch {
+                return 'The API is not responding right now. Please try again later.';
+              }
+            }
 
             // Helper: activate nodes/lines by data-id
             function activate(id) {
@@ -584,7 +596,12 @@
               // Use the typed question
               const question = inputEl.value.trim() || 'What has Ryan built related to AI product design?';
               if (inputNode) inputNode.textContent = question;
-              if (answerEl) answerEl.textContent = defaultAnswer;
+              if (answerEl) answerEl.textContent = 'Fetching answer...';
+
+              // Fetch real answer from the API in parallel
+              fetchAnswer(question).then(function(answer) {
+                if (answerEl) answerEl.textContent = answer;
+              });
 
               let totalDelay = 0;
 
@@ -639,6 +656,11 @@
             // Init: input active
             activate('input');
 
+            // Enter on input field triggers the run
+            inputEl.addEventListener('keydown', function(e){
+              if (e.key === 'Enter' && !runBtn.disabled) animateSequence();
+            });
+
             // Keyboard: Enter on run/reset
             runBtn.addEventListener('keydown', function(e){
               if (e.key === 'Enter') animateSequence();
@@ -682,7 +704,7 @@
             <li>Custom case study system with consistent structure and hierarchy</li>
             <li>Reusable layout patterns across pages</li>
             <li>AI-powered chat widget integrated into the portfolio</li>
-            <li>SEO and metadata structure built directly into templates</li>
+            <li>SEO, AEO, accessibility, and metadata structure built directly into templates</li>
           </ul>
 
           <p>
@@ -722,52 +744,24 @@
             <h2>Database-driven RAG</h2>
           </div>
           <p>
-            The original knowledge base was a single JSON file loaded into every chat request. It worked for the first version, but every query sent the entire KB as context — wasteful and unscalable.
+            The original knowledge base was a single JSON file loaded into every chat request. 
+            It worked for the first version, but every query sent the entire KB as context. This was just wasteful and unscalable.
           </p>
           <p>
-            I replaced it with a PostgreSQL database (Supabase) using pgvector for semantic search. Each piece of content is chunked, embedded via Gemini, and stored with a 768-dimension vector index.
+            I replaced it with a PostgreSQL database (Supabase) using pgvector for semantic search. 
+            Each piece of content is chunked, embedded via Gemini, and stored with a 768-dimension vector index.
           </p>
           <p>
-            Now queries find only the most relevant chunks instead of the full document. The same database also tracks chat sessions and resume downloads — turning the portfolio into a measurable surface.
+            Now queries find only the most relevant chunks instead of the full document. 
+            The same database also tracks chat sessions and resume downloads — turning the portfolio into a measurable surface.
           </p>
           <aside class="callout callout--accent">
             <h3>Tradeoff</h3>
             <p>
-              Added a database dependency and embedding pipeline. Worth it for query relevance and the analytics that now inform which content hiring managers actually engage with.
+              Added a database dependency and embedding pipeline. 
+              Worth it for query relevance and the analytics that now inform which content hiring managers actually engage with.
             </p>
           </aside>
-        </section>
-
-        <section aria-label="Iteration & workflow">
-          <div class="section-divider">
-            <h2>Iteration & workflow</h2>
-          </div>
-
-          <div class="adoption-grid">
-
-            <article>
-              <p><strong>Phase 1:</strong> Exploration — testing tools and learning their limits</p>
-            </article>
-
-            <article>
-              <p><strong>Phase 2:</strong> Structure — defining reusable prompts and patterns</p>
-            </article>
-
-            <article>
-              <p><strong>Phase 3:</strong> Productization — consistent workflow across all features</p>
-            </article>
-
-          </div>
-
-          <aside class="callout">
-            <h3>How prompts evolved</h3>
-            <p><strong>Initial prompt that was too vague:</strong></p>
-            <pre><code>Create a case study page</code></pre>
-            <p><strong>Refined prompt after adding structure:</strong></p>
-            <pre><code>Create a case study section with heading, lead paragraph,
-and KPI list. Use existing CSS tokens for spacing and type.</code></pre>
-          </aside>
-
         </section>
 
         <section aria-label="Impact" class="section--alt">
@@ -778,7 +772,7 @@ and KPI list. Use existing CSS tokens for spacing and type.</code></pre>
           <p>
             The site ships as fully custom HTML, CSS, and JavaScript — no templates, no CMS, no
             static site generator. Every page shares layout patterns and design tokens. The chat
-            widget answers questions about Ryan's work using semantic search against a PostgreSQL
+            widget answers questions about my work using semantic search against a PostgreSQL
             vector store.
           </p>
 
@@ -797,15 +791,15 @@ and KPI list. Use existing CSS tokens for spacing and type.</code></pre>
           <h3>Lessons</h3>
           <ul>
             <li><strong>AI amplifies structure.</strong> Clear thinking produces better output</li>
-            <li><strong>Speed needs discipline.</strong> Without constraints, code degrades quickly</li>
+            <li><strong>Speed needs discipline.</strong> Without constraints and direction, code degrades quickly</li>
             <li><strong>Iteration is the real advantage.</strong> Faster loops matter more than automation</li>
           </ul>
 
           <h3>Next</h3>
           <ul>
-            <li>Expand from portfolio to real product experiments</li>
-            <li>Refine component and architecture systems</li>
-            <li>Explore building tools with real user value</li>
+            <li>I want to make the chat more powerful across the board</li>
+            <li>I want to add more interactive elements to the site</li>
+            <li>Include even more elegant threejs/webgl effects</li>
           </ul>
         </section>
 

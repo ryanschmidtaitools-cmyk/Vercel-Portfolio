@@ -1984,7 +1984,7 @@ code {
   grid-template-columns: 2fr 1fr;
   column-gap: var(--space-8);
   align-items: start;
-  width: calc(100% + 80px);
+  width: calc(100% + 160px);
   margin-inline: -40px;
 }
 
@@ -2638,7 +2638,7 @@ code {
   background: rgba(255, 255, 255, 0.6);
   color: var(--text);
   border: none;
-  border-radius: 0;
+  border-radius: 6px;
   box-shadow: var(--shadow-card);
   font: inherit;
   outline: none;
@@ -2662,7 +2662,7 @@ code {
   background: var(--accent-hover);
   color: #fff;
   font-weight: var(--weight-semibold);
-  border-radius: 0;
+  border-radius: 6px;
   box-shadow: var(--shadow-card);
 }
 
