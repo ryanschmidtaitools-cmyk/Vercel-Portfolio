@@ -327,23 +327,25 @@
           <p>
             The content hierarchy has four distinct levels:
           </p>
-          <div data-spotlight aria-label="IA explorer">
-            <div class="spotlight-grid">
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Areas of Focus">Areas of Focus</button>
-                <p class="spotlight-desc">The broadest practice domains (e.g. leadership, talent, culture)</p>
+          <div data-compare data-compare-default="areas">
+            <div class="compare-tabs">
+              <button type="button" data-compare-button="areas" aria-pressed="true">Areas of Focus</button>
+              <button type="button" data-compare-button="priorities" aria-pressed="false">Priorities</button>
+              <button type="button" data-compare-button="topics" aria-pressed="false">Topics</button>
+              <button type="button" data-compare-button="content" aria-pressed="false">Individual content</button>
+            </div>
+            <div class="compare-panels">
+              <div class="compare-panel" data-compare-state="areas">
+                <p>The broadest practice domains (e.g. leadership, talent, culture)</p>
               </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Priorities">Priorities</button>
-                <p class="spotlight-desc">The strategic questions within each area</p>
+              <div class="compare-panel" data-compare-state="priorities">
+                <p>The strategic questions within each area</p>
               </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Topics">Topics</button>
-                <p class="spotlight-desc">Specific subject clusters within each priority</p>
+              <div class="compare-panel" data-compare-state="topics">
+                <p>Specific subject clusters within each priority</p>
               </div>
-              <div class="spotlight-item">
-                <button type="button" data-spotlight-item aria-label="Individual content">Individual content</button>
-                <p class="spotlight-desc">Articles, videos, webinars, benchmarks</p>
+              <div class="compare-panel" data-compare-state="content">
+                <p>Articles, videos, webinars, benchmarks</p>
               </div>
             </div>
           </div>
