@@ -3395,6 +3395,7 @@ body.page-transitioning {
 [data-compare] button[data-compare-button] {
   background: rgba(255, 255, 255, 0.6);
   border: none;
+  border-radius: 6px;
   color: var(--text-secondary);
   padding: var(--space-3) var(--space-4);
   font-weight: var(--weight-semibold);
@@ -3441,6 +3442,20 @@ body.page-transitioning {
   gap: .75rem;
 }
 
+[data-spotlight] .spotlight-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+[data-spotlight] .spotlight-desc {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm, 14px);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
 [data-spotlight] [data-spotlight-item] {
   display: inline-flex;
   align-items: center;
@@ -3448,6 +3463,7 @@ body.page-transitioning {
   padding: var(--space-3) var(--space-4);
   background: rgba(255, 255, 255, 0.6);
   border: none;
+  border-radius: 6px;
   color: var(--text-secondary);
   font-weight: var(--weight-semibold);
   transition: background var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
