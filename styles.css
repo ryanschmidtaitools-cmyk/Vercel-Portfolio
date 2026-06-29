@@ -1981,8 +1981,8 @@ code {
   border-radius: 0;
   box-shadow: var(--shadow-card);
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  column-gap: var(--space-8);
+  grid-template-columns: 1fr;
+  row-gap: var(--space-6);
   align-items: start;
   width: calc(100% + 160px);
   margin-inline: -40px;
