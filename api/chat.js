@@ -1652,6 +1652,23 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
 }
 */
 
+function safeExtractAnswer(raw) {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed.startsWith("{") || !trimmed.includes('"answer"')) return null;
+  try {
+    const parsed = JSON.parse(trimmed);
+    if (parsed && typeof parsed.answer === "string") return parsed.answer;
+    return null;
+  } catch {
+    const m = trimmed.match(/"answer"\s*:\s*"((?:\\.|[^"\\])*)/);
+    if (m) {
+      try { return JSON.parse(`"${m[1]}"`); } catch {}
+    }
+    return null;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Gemini fallback handler
 // -----------------------------------------------------------------------------
@@ -1888,7 +1905,21 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
     ? parts.map(p => p && p.text).filter(Boolean).join("\n")
     : (data?.candidates?.[0]?.content?.parts?.[0]?.text || "");
 
-  return parseGeminiOutput(text, pickedCases, kb, isFit);
+  const result = parseGeminiOutput(text, pickedCases, kb, isFit);
+
+  // Debug: detect if answer is still raw JSON
+  let debugAnswer = result.answer;
+  if (typeof debugAnswer === "string" && debugAnswer.trim().startsWith("{") && debugAnswer.includes('"answer"')) {
+    const extracted = safeExtractAnswer(debugAnswer);
+    if (extracted) {
+      console.warn(`Gemini JSON unwrap: answer was raw JSON, extracted successfully`);
+      result.answer = extracted;
+    } else {
+      console.warn(`Gemini JSON unwrap FAILED: raw="${debugAnswer.slice(0,200)}" text="${text.slice(0,300)}"`);
+    }
+  }
+
+  return result;
 }
 
 // -----------------------------------------------------------------------------
