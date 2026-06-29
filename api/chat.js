@@ -2185,7 +2185,11 @@ export default async function handler(req, res) {
     }
 
     const metricAllowlist = buildMetricAllowlist(kb);
-    const answer = polishAnswerText(validateAnswerMetrics(modelOutput.answer, metricAllowlist));
+    let rawAnswer = modelOutput.answer;
+    if (typeof rawAnswer === "string" && rawAnswer.trim().startsWith("{") && rawAnswer.includes('"answer"')) {
+      try { const parsed = JSON.parse(rawAnswer); if (parsed && typeof parsed.answer === "string") rawAnswer = parsed.answer; } catch {}
+    }
+    const answer = polishAnswerText(validateAnswerMetrics(rawAnswer, metricAllowlist));
     const suggested_pills = Array.isArray(modelOutput.suggested_pills) && modelOutput.suggested_pills.length
       ? modelOutput.suggested_pills.slice(0, 2)
       : defaultSuggestedPills(intent, lastUser);
