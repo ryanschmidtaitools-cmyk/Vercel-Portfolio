@@ -1553,8 +1553,8 @@ code {
   gap: var(--space-6);
 }
 
-.callout.research-grid {
-  padding: var(--space-5) var(--space-6);
+.case-study .callout.research-grid {
+  padding: var(--space-5) 0;
 }
 
 .research-column ul {
@@ -1976,7 +1976,8 @@ code {
 }
 
 .tldr-meta {
-  margin-top: var(--space-6);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-6);
   padding: var(--space-6) var(--space-6);
   background: var(--surface-elevated);
   border: none;
