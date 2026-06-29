@@ -43,8 +43,8 @@
       slide.style.willChange = 'transform, opacity';
       slide.style.cursor = 'pointer';
 
-      var media = slide.querySelector('img, video');
-      if (media) {
+      var media = slide.querySelector(':scope > img, :scope > video');
+      if (media && !media.closest('.image-splitter')) {
         media.style.width = '100%';
         media.style.height = 'auto';
         media.style.display = 'block';
