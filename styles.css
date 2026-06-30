@@ -167,6 +167,11 @@
   --dot-size: 14px;
   --line-thickness: 2px;
 
+  /* Backdrop blur tokens */
+  --blur-sm: 4px;
+  --blur-md: 18px;
+  --blur-lg: 24px;
+
   /* Shadows (10% deeper than default) */
 --shadow-1:
   0 1px 2px rgb(15 23 42 / 0.07),
@@ -219,6 +224,15 @@
   --cool-88:            rgb(79 110 247 / 0.88);
 
   /* === Status colors === */
+  --green:            #059669;
+  --green-soft:       rgb(5 150 105 / 0.12);
+  --amber:            #D97706;
+  --amber-soft:       rgb(217 119 6 / 0.12);
+  --red:              #DC2626;
+  --red-soft:         rgb(220 38 38 / 0.10);
+  --blue:             #2563EB;
+  --blue-soft:        rgb(37 99 235 / 0.12);
+
   --color-success:      #00C389;
   --color-success-soft: rgb(0 195 137 / 0.12);
 
@@ -609,6 +623,10 @@ code {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border);
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-secondary:hover {
@@ -1835,6 +1853,7 @@ code {
   max-width: var(--prose);
   margin-inline: auto;
   margin-top: 0;
+  scroll-margin-top: 5rem;
 }
 
 .case-study section+section {
@@ -1853,6 +1872,7 @@ code {
   letter-spacing: -0.025em;
   margin: 0 0 var(--case-h2-to-body) 0;
   color: var(--text-display);
+  text-wrap: balance;
 }
 
 .case-study section h3 {
@@ -2375,9 +2395,9 @@ code {
 }
 
 .case-study--ai-coding-portfolio .sa-chip--end {
-  background: var(--accent-success-soft);
-  border-color: rgba(0, 255, 170, 0.18);
-  color: var(--accent-success);
+  background: var(--green-soft);
+  border-color: rgba(5, 150, 105, 0.18);
+  color: var(--green);
 }
 
 .case-study--ai-coding-portfolio .sa-arrow {
@@ -2442,6 +2462,16 @@ code {
 
 /* Custom decorations removed for consistency */
 
+/* :target highlight for anchor-linked sections */
+.case-study section:target {
+  animation: targetFlash 2s var(--ease-out);
+}
+
+@keyframes targetFlash {
+  0% { background-color: var(--accent-soft); }
+  100% { background-color: transparent; }
+}
+
 .case-study .dh-slide figcaption {
   max-width: 80%;
   margin: var(--space-3) auto var(--space-2);
@@ -2468,6 +2498,7 @@ code {
   position: relative;
   width: 100%;
   height: 100%;
+  will-change: transform;
 }
 
 .circular-carousel__slide {
@@ -2522,7 +2553,7 @@ code {
   cursor: pointer;
   opacity: 0;
   transition: opacity 200ms ease, background 200ms ease, transform 200ms ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(var(--blur-sm));
 }
 .circular-carousel:hover .carousel-pause-btn,
 .carousel-pause-btn:focus-visible {
@@ -3510,6 +3541,10 @@ body.page-transitioning {
   transition: background var(--dur-2) ease, color var(--dur-2) ease, transform var(--dur-2) ease;
 }
 
+[data-compare] button[data-compare-button]:active {
+  transform: scale(0.97);
+}
+
 [data-compare] button[data-compare-button][aria-pressed="true"] {
   background: var(--accent);
   color: #fff;
@@ -3698,8 +3733,8 @@ body.page-transitioning {
     0 24px 48px rgba(0,0,0,0.6),
     0 0 0 1px rgba(255,255,255,0.05),
     inset 0 1px 0 rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(var(--blur-lg));
+  -webkit-backdrop-filter: blur(var(--blur-lg));
   opacity: 0;
   transform: translateY(8px) scale(0.97);
   transition:
@@ -3783,8 +3818,8 @@ body.page-transitioning {
   background: var(--surface-1, rgba(255,255,255,0.06));
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4075,7 +4110,7 @@ body.page-transitioning {
   flex-direction: column;
   gap: var(--space-2);
   background: var(--surface-dark-glass);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--surface-dark-border);
   border-radius: var(--radius-lg);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.24);
@@ -4294,6 +4329,7 @@ body.page-transitioning {
   .hamburger-menu,
   .ai-mini-wrapper,
   .circular-progress-wrapper,
+  .section-rail,
   .rs-chat-widget,
   .read-time-badge {
     display: none !important;
@@ -4343,13 +4379,66 @@ body.page-transitioning {
   transition: box-shadow var(--dur-4) ease, background-color var(--dur-4) ease;
 }
 
+/* ── Sticky Section Navigation Rail ── */
+.section-rail {
+  position: fixed;
+  left: max(12px, calc((100vw - var(--prose)) / 2 - 140px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  pointer-events: none;
+}
+
+@media (min-width: 1200px) {
+  .section-rail.is-visible {
+    display: flex;
+  }
+}
+
+.section-rail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  transition: color var(--dur-2) var(--ease-out);
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.section-rail-item::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background var(--dur-2) var(--ease-out), width var(--dur-2) var(--ease-out), height var(--dur-2) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.section-rail-item.is-active {
+  color: var(--accent);
+}
+
+.section-rail-item.is-active::before {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+}
+
 /* ── Portfolio Visual Fixes Overrides ── */
 .research-grid > * {
   text-align: left;
 }
 
 .what-i-got-wrong-card {
-  background: linear-gradient(135deg, rgba(185, 28, 28, 0.045), var(--surface-elevated) 62%);
+  background: linear-gradient(135deg, var(--red-soft), var(--surface-elevated) 62%);
 }
 
 [aria-label="Design approach & decisions"] [data-story-step]::before,

@@ -506,10 +506,16 @@
     const url = new URL(link.href, window.location.origin);
     if (url.origin === window.location.origin) {
       e.preventDefault();
-      document.body.classList.add("page-transitioning");
-      setTimeout(() => {
-        window.location.href = link.href;
-      }, 200);
+      if (document.startViewTransition) {
+        document.startViewTransition(() => {
+          window.location.href = link.href;
+        });
+      } else {
+        document.body.classList.add("page-transitioning");
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 200);
+      }
     }
   });
 
@@ -681,7 +687,7 @@
 // ============================================================================
 // Feature 9: Subtle Grain / Noise Overlay (Phase 2)
 // ============================================================================
-// Feature 11: Scroll-Linked Image Reveals (Phase 2)
+// Feature 11: Progressive Image Reveal (Phase 2)
 // ============================================================================
 (function () {
   const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -690,69 +696,82 @@
   const images = document.querySelectorAll(".case-study img:not(.no-reveal)");
   if (!images.length) return;
 
-  // Initial CSS state
   images.forEach(img => {
     img.style.clipPath = "inset(0 100% 0 0)";
-    img.style.transition = "clip-path 0.1s linear"; // Smooth out RAF steps
   });
-
-  const revealing = new Set();
-  let raf = null;
-
-  function updateRevealsOnce() {
-    if (revealing.size === 0) {
-      raf = null;
-      return;
-    }
-
-    const windowHeight = window.innerHeight;
-    revealing.forEach((img) => {
-      const rect = img.getBoundingClientRect();
-      const visiblePx = windowHeight - rect.top;
-      const revealStart = 50;
-      const revealEnd = rect.height > windowHeight * 0.6 ? windowHeight * 0.5 : rect.height + 50;
-
-      let progress = (visiblePx - revealStart) / (revealEnd - revealStart);
-      progress = Math.max(0, Math.min(1, progress));
-
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const insetRight = 100 - (eased * 100);
-      img.style.clipPath = `inset(0 ${insetRight}% 0 0)`;
-    });
-
-    raf = requestAnimationFrame(updateRevealsOnce);
-  }
-
-  function startLoopIfNeeded() {
-    if (raf || revealing.size === 0) return;
-    raf = requestAnimationFrame(updateRevealsOnce);
-  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.dataset.revealing = "true";
-        revealing.add(entry.target);
-        startLoopIfNeeded();
-      } else {
-        // If it scrolls out of view completely (above or below), reset or finish
-        const rect = entry.boundingClientRect;
-        if (rect.top > window.innerHeight) {
-          // Scrolled back up, reset to hidden
-          entry.target.style.clipPath = "inset(0 100% 0 0)";
-          entry.target.dataset.revealing = "false";
-          revealing.delete(entry.target);
-        } else {
-          // Scrolled past, fully reveal
-          entry.target.style.clipPath = "inset(0 0 0 0)";
-          entry.target.dataset.revealing = "false";
-          revealing.delete(entry.target);
-        }
+        entry.target.style.clipPath = "inset(0 0 0 0)";
+        entry.target.style.transition = "clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
+        observer.unobserve(entry.target);
       }
     });
-  }, { rootMargin: "0px", threshold: 0 });
+  }, { rootMargin: "0px 0px -40px 0px", threshold: 0 });
 
   images.forEach(img => observer.observe(img));
+})();
+
+// ============================================================================
+// Sticky Section Navigation Rail
+// ============================================================================
+(function () {
+  const article = document.querySelector(".case-study");
+  if (!article) return;
+
+  const sections = [...article.querySelectorAll("section[id]")];
+  if (sections.length < 3) return;
+
+  const rail = document.createElement("nav");
+  rail.className = "section-rail";
+  rail.setAttribute("aria-label", "Section navigation");
+
+  sections.forEach((section) => {
+    const label = section.getAttribute("aria-label") || "";
+    if (!label) return;
+    const link = document.createElement("a");
+    link.className = "section-rail-item";
+    link.href = "#" + section.id;
+    link.textContent = label;
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    rail.appendChild(link);
+  });
+
+  document.body.appendChild(rail);
+
+  requestAnimationFrame(() => rail.classList.add("is-visible"));
+
+  const items = [...rail.querySelectorAll(".section-rail-item")];
+  let activeIndex = 0;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      let maxRatio = 0;
+      let newIndex = activeIndex;
+
+      entries.forEach((entry) => {
+        const idx = sections.indexOf(entry.target);
+        if (idx === -1) return;
+        if (entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          newIndex = idx;
+        }
+      });
+
+      if (newIndex !== activeIndex) {
+        items.forEach((el) => el.classList.remove("is-active"));
+        items[newIndex].classList.add("is-active");
+        activeIndex = newIndex;
+      }
+    },
+    { rootMargin: "-80px 0px -40% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
+
+  sections.forEach((section) => observer.observe(section));
 })();
 
 // ============================================================================
