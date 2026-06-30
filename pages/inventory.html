@@ -307,12 +307,15 @@
             <h2 data-reveal>Problem</h2>
           </div>
           <p>
-            Every week, project managers spent hours reconciling stock counts across spreadsheets. Equipment went missing because nobody could trust the numbers. And enterprise prospects expected integrated inventory before they would sign — so the gap was also a sales blocker.
+            Every week, project managers spent hours reconciling stock counts across spreadsheets or jumping between different software. 
+            Sometimes, equipment went missing because nobody could trust the numbers. 
+            And enterprise prospects expected integrated inventory before they would sign — so the gap was also a sales blocker.
           </p>
 
           <h3>Objectives</h3>
           <ul>
-            <li>Reduce manual tracking and errors</li>
+            <li>Eliminate manual tracking and errors</li>
+            <li>Eliminate dependency on additional software</li>
             <li>Automate alerts and reorders</li>
             <li>Integrate with purchasing/projects</li>
           </ul>
@@ -323,13 +326,16 @@
             <h2>Research Insights</h2>
           </div>
           <p>
-            I started by understanding what the spreadsheet workflow actually looked like. One power user maintained a master spreadsheet with 14 tabs — one per project, plus cross-reference sheets, reconciliation logs, and a manual low-stock tracker highlighted in yellow. It took her two hours a day to keep current, and decisions were still made from stale data.
+            I started by understanding what the user's workflow actually looked like. 
+            This could be the user jumping between Cloud and a spreadsheet or Cloud and another software they're paying for, just for inventory.
+            One power user maintained a master spreadsheet with 14 tabs — one per project, plus cross-reference sheets, reconciliation logs, and a manual low-stock tracker highlighted in yellow. 
+            It took her two hours a day to keep current, and decisions were still made from stale data.
           </p>
           <p>
             Across 6 user interviews and workflow mapping sessions, the pattern was consistent:
           </p>
           <ul>
-            <li><strong>Time sink:</strong> 2–3 hours/day reconciling stock; 15–20% error rates</li>
+            <li><strong>Time sink:</strong> 2–3 hours/day reconciling stock; user-reported roughly 15–20% error rates</li>
             <li><strong>User split:</strong> Small AV shops needed fast confidence in quantities, while larger teams needed asset‑level traceability for accountability</li>
             <li><strong>Market signal:</strong> Integrated inventory was table stakes in enterprise deals</li>
           </ul>
@@ -339,14 +345,14 @@
             We could have shipped a simpler, spreadsheet-like solution with periodic updates.
           </p>
           <p>
-            Instead, I pushed for a real-time, unified inventory system across projects and locations. 
+            Instead, I pushed for a real-time, unified inventory system across projects and locations (such as warehouses, vans, and job sites). 
             While this added technical complexity, it eliminated duplicate sources of truth and ensured teams could trust inventory data everywhere.
           </p>
 
           <aside data-reveal class="callout">
             <h3>Design Responses</h3>
             <ol>
-              <li><strong>Receiving defines truth:</strong> Inventory updates at the moment a PO is received — eliminating lag and reconciliation gaps</li>
+              <li><strong>Receiving defines truth:</strong> Inventory updates at the moment a PO is received (even partially received) — eliminating lag and reconciliation gaps</li>
               <li><strong>Unified data model:</strong> One system across projects and stock, removing duplication and conflicting counts</li>
               <li><strong>Surface risk early:</strong> Low-stock alerts and reorder signals make inventory issues visible before they become urgent</li>
             </ol>
@@ -355,12 +361,18 @@
           <div data-compare data-compare-default="spreadsheet">
             <div class="compare-tabs">
               <button type="button" data-compare-button="spreadsheet" aria-pressed="true">Spreadsheet</button>
+              <button type="button" data-compare-button="software" aria-pressed="true">Other software</button>
               <button type="button" data-compare-button="system">Real-time system</button>
             </div>
             <div class="compare-panels">
               <div class="compare-panel" data-compare-state="spreadsheet">
                 <h3>Legacy spreadsheet workflow</h3>
-                <p>Users manually reconciled counts, split data across tabs, and made decisions from stale information.</p>
+                <p>Some users manually reconciled counts, split data across tabs, and made decisions from stale information.</p>
+              </div>
+              <div class="compare-panel" data-compare-state="software">
+                <h3>Money spent on another tool</h3>
+                <p>Most users used another piece of software, like Jetbuilt, to manage inventory. 
+                  Multiple software is more error prone and cost users money.</p>
               </div>
               <div class="compare-panel" data-compare-state="system">
                 <h3>Unified real-time inventory</h3>
@@ -378,23 +390,25 @@
             <h3>Problems</h3>
             <ul>
               <li>Manual spreadsheet reconciliation hid low‑stock thresholds, causing delays and last‑minute emergency buys</li>
+              <li>Using external tools like Jetbuilt created fragmented inventory management, leading to higher error risk, duplicated effort, and unnecessary software costs.</li>
             </ul>
           </div>
           <div>
             <h3>How Might We</h3>
-            <p>How might we surface critical inventory risks and eliminate manual reconciliation?</p>
+            <p>How might we surface critical inventory risks and eliminate manual reconciliation or the need for more software?</p>
           </div>
           <div class="journey-solutions">
             <h3>Solutions</h3>
             <ul>
               <li><strong>Surface risk:</strong> Visual low-stock and incoming-PO indicators on the inventory dashboard</li>
               <li><strong>Automation:</strong> PO-driven stock updates and status changes across locations</li>
+              <li><strong>Unified system:</strong> Eliminated the need for external tools like Jetbuilt by providing a single, reliable source of truth</li>
             </ul>
           </div>
           <div data-progress-story>
             <div data-story-step>
               <span class="step-label">Map the pain</span>
-              <p class="step-copy">Captured how spreadsheets delayed decisions and concealed stock risk.</p>
+              <p class="step-copy">Captured how spreadsheets or switching between software delayed decisions and concealed stock risk.</p>
             </div>
             <div data-story-step>
               <span class="step-label">Align the model</span>
@@ -412,7 +426,9 @@
             <h2>System model</h2>
           </div>
           <p>
-            The core design challenge was not just showing inventory. It was defining how inventory changed state across purchasing, receiving, project allocation, location transfers, and asset-level tracking. I worked with PM and engineering to align on a shared model so the UI could explain why an item was available, allocated, incoming, or low-stock instead of showing a flat quantity with no context.
+            The core design challenge wasn't just showing inventory. 
+            It was defining how inventory changed state across purchasing, receiving, project allocation, location transfers, and asset-level tracking. 
+            I worked with PM and engineering to align on a shared model so the UI could explain why an item was available, allocated, incoming, or low-stock instead of showing a flat quantity with no context.
           </p>
 
           <div class="section-divider">
@@ -420,11 +436,12 @@
           </div>
           <ul>
             <li><strong>Real-time unified model:</strong> Chose a single real-time system across locations despite added complexity—ensuring consistent, reliable stock counts everywhere</li>
-            <li><strong>Manual reordering (MVP):</strong> We intentionally stopped short of fully automated reordering in the MVP because teams first needed to trust the inventory counts and alert thresholds. Automating purchasing before trust was established could have created expensive mistakes, so alerts gave us a safer path to validate behavior before increasing automation.</li>
-            <li><strong>Native integration:</strong> Integrated directly with purchasing and project tools to meet enterprise expectations and avoid tool sprawl</li>
+            <li><strong>Manual reordering (MVP):</strong> We intentionally stopped short of fully automated reordering in the MVP because teams first needed to trust the inventory counts and alert thresholds. 
+              Automating purchasing before trust was established could have created expensive mistakes, so alerts gave us a safer path to validate behavior before increasing automation.</li>
           </ul>
           <p>
-            For handoff, I documented how allocations, multi‑location states, and receiving/reordering rules affect available inventory — so UI behavior stays consistent as the system model gets implemented. The shared data model was aligned with engineering first, so the UI explains state rather than just showing flat quantities.
+            For handoff, I documented how allocations, multi‑location states, and receiving/reordering rules affect available inventory — so UI behavior stays consistent as the system model gets implemented. 
+            The shared data model was aligned with engineering first, so the UI explains state rather than just showing flat quantities.
           </p>
         </section>
 
@@ -466,9 +483,11 @@
           </div>
           <p>Ran three rounds of high‑fidelity Figma tests to validate receiving, alerts, multi‑location inventory, and reordering flows for clarity and error reduction.</p>
 
-          <h3>Defining decision: quantity-first by default, asset-level when needed</h3>
+          <h3>Defining decision: quantity-first by default, asset-level when needed (for larger company users)</h3>
           <p>
-            Testing showed that smaller teams wanted fast confidence in counts, while larger teams needed specific asset traceability for accountability. I designed the system to stay quantity-first by default, with asset-level tracking available where the workflow required it. That kept the common path simple without blocking enterprise-level control.
+            Testing showed that smaller teams wanted fast confidence in counts, while larger teams needed specific asset traceability for accountability. 
+            I designed the system to stay quantity-first by default, with asset-level tracking available where the workflow required it (also based on settings and permissions). 
+            This kept the common path simple without blocking enterprise-level control.
           </p>
         </section>
 
@@ -498,10 +517,11 @@
             <h2>Lessons & Next Steps</h2>
           </div>
           <p>
-            The biggest lesson was that operational products earn trust through state clarity. Users did not just need to know how many items were in stock; they needed to understand why the number was trustworthy, where it came from, and what would happen next.
+            The biggest lesson was that operational products earn trust through state clarity. 
+            Users did not just need to know how many items were in stock; they needed to understand why the number was trustworthy, where it came from, and what would happen next.
           </p>
           <ul>
-            <li><strong>Next:</strong> auto-PO creation from thresholds, mobile scanning, and stock analytics (velocity and dead stock)</li>
+            <li><strong>Next:</strong> auto-PO creation from thresholds and mobile scanning</li>
           </ul>
         </section>
       </article>

@@ -1848,7 +1848,6 @@ code {
   letter-spacing: var(--tracking-caps-wide);
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: var(--space-2);
 }
 
 /* Body text inside case study (supporting prose) */
@@ -1985,7 +1984,7 @@ code {
   row-gap: var(--space-6);
   align-items: start;
   width: 100%;
-  margin-inline: -40px;
+  margin-inline: 0;
 }
 
 @media (max-width: 860px) {
@@ -1996,6 +1995,10 @@ code {
     row-gap: var(--space-5);
     padding: var(--space-5);
   }
+}
+
+.tldr-role ul {
+  padding-left: var(--space-4);
 }
 
 .tldr-role p {
@@ -2043,7 +2046,7 @@ code {
   line-height: var(--kpi-label-line-height);
   letter-spacing: var(--kpi-label-ls);
   text-transform: uppercase;
-  max-width: 24ch;
+  max-width: 32ch;
   color: var(--kpi-label-color);
 }
 
