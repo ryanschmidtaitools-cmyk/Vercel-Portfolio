@@ -78,13 +78,17 @@
           setTimeout(() => { window.__hamburgerToggleLocked = false; }, 40);
 
           const open = !menu.classList.contains('show');
-          if (open) menu.classList.add('show');
+          if (open) {
+            menu.classList.add('show');
+            allMenuItems.forEach(item => item.removeAttribute('tabindex'));
+          }
           else {
             menu.classList.remove('show');
             menu.querySelectorAll('.menu-item-group.is-open').forEach(g => {
               Array.from(g.querySelectorAll('.menu-submenu a')).forEach(l => l.style.transitionDelay = '0ms');
               g.classList.remove('is-open');
             });
+            allMenuItems.forEach(item => item.setAttribute('tabindex', '-1'));
           }
           hamburger.classList.toggle('open', open);
           hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -139,6 +143,7 @@
           hamburger.setAttribute('aria-expanded', 'false');
           menu.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('menu-open');
+          allMenuItems.forEach(item => item.setAttribute('tabindex', '-1'));
           hamburger.focus();
         });
 
@@ -148,6 +153,7 @@
           item.style.transitionDelay = `${itemIndex * 20}ms`;
           itemIndex++;
         });
+        allMenuItems.forEach(item => item.setAttribute('tabindex', '-1'));
 
         // Submenu click toggle with staggered drop
         menu.querySelectorAll('.menu-trigger').forEach(trigger => {
@@ -432,39 +438,6 @@
 })();
 
 // ============================================================================
-// Magnetic Buttons
-// ============================================================================
-(function () {
-  const supportsHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (!supportsHover) return;
-
-  const magneticEls = document.querySelectorAll(".hero-cta-primary, .btn, .btn-primary, .btn-secondary");
-
-  magneticEls.forEach((item) => {
-    const isLarge = item.classList.contains("hero-cta-primary");
-    const strength = isLarge ? 12 : 6;
-
-    function onMove(e) {
-      const rect = item.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
-      const dx = ((x - cx) / cx) * strength;
-      const dy = ((y - cy) / cy) * strength;
-      item.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
-    }
-
-    function reset() {
-      item.style.transform = "translate3d(0, 0, 0)";
-    }
-
-    item.addEventListener("mousemove", onMove);
-    item.addEventListener("mouseleave", reset);
-  });
-})();
-
-// ============================================================================
 // Upgraded Circular Scroll Progress Indicator
 // ============================================================================
 (function () {
@@ -664,43 +637,8 @@
   }
 })();
 
-// ============================================================================
-// Feature 3: Read Time Estimator Badge
-// ============================================================================
-(function () {
-  const article = document.querySelector(".case-study");
-  if (!article) return;
-
-  const titleEl = article.querySelector("h1");
-  if (!titleEl) return;
-
-  // Count words across all text nodes in the article (exclude nav/scripts)
-  const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
-    acceptNode(node) {
-      const tag = node.parentElement && node.parentElement.tagName;
-      if (["SCRIPT", "STYLE", "NOSCRIPT"].includes(tag)) return NodeFilter.FILTER_REJECT;
-      return NodeFilter.FILTER_ACCEPT;
-    }
-  });
-
-  let wordCount = 0;
-  let node;
-  while ((node = walker.nextNode())) {
-    wordCount += node.textContent.trim().split(/\s+/).filter(Boolean).length;
-  }
-
-  const minutes = Math.max(1, Math.round(wordCount / 200));
-  const badge = document.createElement("span");
-  badge.className = "read-time-badge";
-  badge.setAttribute("aria-label", `Estimated read time: ${minutes} minutes`);
-  badge.textContent = `${minutes} min read`;
-
-  titleEl.insertAdjacentElement("afterend", badge);
-})();
-
-// ============================================================================
+// (Feature 3 removed — Read Time Estimator Badge was removed)
 // (Feature 8 removed — "Ask About This Section" chips no longer used)
-// ============================================================================
 
 // ============================================================================
 // Feature 9: Subtle Grain / Noise Overlay (Phase 2)
@@ -731,66 +669,7 @@
   images.forEach(img => observer.observe(img));
 })();
 
-// ============================================================================
-// Sticky Section Navigation Rail
-// ============================================================================
-(function () {
-  const article = document.querySelector(".case-study");
-  if (!article) return;
-
-  const sections = [...article.querySelectorAll("section[id]")];
-  if (sections.length < 3) return;
-
-  const rail = document.createElement("nav");
-  rail.className = "section-rail";
-  rail.setAttribute("aria-label", "Section navigation");
-
-  sections.forEach((section) => {
-    const label = section.getAttribute("aria-label") || "";
-    if (!label) return;
-    const link = document.createElement("a");
-    link.className = "section-rail-item";
-    link.href = "#" + section.id;
-    link.textContent = label;
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-    rail.appendChild(link);
-  });
-
-  document.body.appendChild(rail);
-
-  requestAnimationFrame(() => rail.classList.add("is-visible"));
-
-  const items = [...rail.querySelectorAll(".section-rail-item")];
-  let activeIndex = 0;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      let maxRatio = 0;
-      let newIndex = activeIndex;
-
-      entries.forEach((entry) => {
-        const idx = sections.indexOf(entry.target);
-        if (idx === -1) return;
-        if (entry.intersectionRatio > maxRatio) {
-          maxRatio = entry.intersectionRatio;
-          newIndex = idx;
-        }
-      });
-
-      if (newIndex !== activeIndex) {
-        items.forEach((el) => el.classList.remove("is-active"));
-        items[newIndex].classList.add("is-active");
-        activeIndex = newIndex;
-      }
-    },
-    { rootMargin: "-80px 0px -40% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-  );
-
-  sections.forEach((section) => observer.observe(section));
-})();
+// (Feature removed — Sticky Section Navigation Rail was removed)
 
 // ============================================================================
 // Shared interactive modules
