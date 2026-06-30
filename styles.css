@@ -1984,7 +1984,7 @@ code {
   grid-template-columns: 1fr;
   row-gap: var(--space-6);
   align-items: start;
-  width: calc(100% + 160px);
+  width: 100%;
   margin-inline: -40px;
 }
 
