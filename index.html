@@ -64,6 +64,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./site.webmanifest">
 <link rel="llms" href="/assets/llms.txt" type="text/markdown">
+<link rel="llms" href="/assets/llms-full.txt" type="text/markdown">
 
 <!-- Sitemap reference -->
 <link rel="sitemap" type="application/xml" href="./sitemap.xml">
@@ -159,8 +160,46 @@
             },
             "description": "Portfolio of Ryan Schmidt, Senior Product Designer in Austin, TX. Four case studies: AI-Powered Dashboards (+71% engagement), Real-Time Inventory (+18% recurring revenue), AI-Coding my Portfolio, and the i4cp Member Portal Overhaul (in progress).",
             "primaryImageOfPage": "https://ryanschmidt.design/Pictures/family-pic.jpg",
-            "dateModified": "2026-06-24",
+            "dateModified": "2026-06-29",
             "inLanguage": "en-US"
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://ryanschmidt.design/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does Ryan Schmidt specialize in?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ryan specializes in information architecture, design systems, AI-augmented product UX, member experience, and design-engineering collaboration."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What roles is Ryan looking for?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ryan is open to Senior Product Designer, Lead Product Designer, Staff Product Designer, and UX Engineer roles — especially where design and engineering share a seat."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does Ryan design and code?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Ryan prototypes in the browser and uses Cursor, OpenCode, and Claude daily. HTML, CSS, JavaScript, React, TypeScript, and design tokens."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where does Ryan work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Austin, TX. Open to remote, hybrid, and Austin-based roles."
+                }
+              }
+            ]
           }
         ]
       }
@@ -441,6 +480,13 @@
       font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: 0.04em;
+      background: none;
+      border: none;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      width: 100%;
     }
     .menu-trigger:hover {
       color: var(--accent);
@@ -488,6 +534,7 @@
 </head>
 
 <body class="is-home">
+  <a href="#main" class="skip-to-content">Skip to content</a>
   <main id="main" class="home-gallery">
     <h1 class="sr-only">Ryan Schmidt — Senior Product Designer</h1>
     <div class="home-logo">Ryan<br>Schmidt<span class="home-role">Senior Product Designer</span></div>
@@ -499,24 +546,26 @@
     </div>
 
     <!-- Hamburger menu bottom-left -->
+    <header>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
         <span class="hamburger-inner" aria-hidden="true"></span>
       </button>
-      <div class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" role="menu">
-        <a href="./index.html" role="menuitem" aria-current="page">Home</a>
-        <a href="pages/about.html" role="menuitem">About</a>
+      <nav class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" aria-label="Main navigation">
+        <a href="./index.html" aria-current="page">Home</a>
+        <a href="pages/about.html">About</a>
         <div class="menu-item-group">
-          <span class="menu-trigger" role="menuitem" tabindex="0">Case Studies</span>
+          <button class="menu-trigger" aria-haspopup="true" aria-expanded="false">Case Studies</button>
           <div class="menu-submenu">
-            <a href="pages/dashboard.html" role="menuitem">AI‑Powered Dashboards</a>
-            <a href="pages/inventory.html" role="menuitem">Real-Time Inventory</a>
-            <a href="pages/member-portal-overhaul.html" role="menuitem">Member Portal Redesign</a>
-            <a href="pages/ai-coding-portfolio.html" role="menuitem">AI-Coding my Portfolio</a>
+            <a href="pages/dashboard.html">AI‑Powered Dashboards</a>
+            <a href="pages/inventory.html">Real-Time Inventory</a>
+            <a href="pages/member-portal-overhaul.html">Member Portal Redesign</a>
+            <a href="pages/ai-coding-portfolio.html">AI-Coding my Portfolio</a>
           </div>
         </div>
-        <a href="assets/ryan-schmidt-resume-june-2026.pdf" role="menuitem" target="_blank" rel="noopener">Resume</a>
-        <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener" role="menuitem">LinkedIn</a>
-      </div>
+        <a href="assets/ryan-schmidt-resume-june-2026.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </header>
 
     <div class="ai-mini-wrapper" data-assistant-trigger>
       <input type="text" id="ai-mini-input" class="ai-mini-input" placeholder="Ask how Ryan’s work demonstrates role fit, product strategy, or case-study impact..." autocomplete="off" aria-label="Ask about Ryan's work, case studies, or role fit" />
@@ -530,7 +579,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <!-- Consolidated JavaScript -->
-  <script src="./scripts/scripts.js"></script>
+  <script src="./scripts/scripts.js" defer></script>
 
   <!-- NLI Connection Logic -->
   <script>
@@ -558,6 +607,9 @@
 
   <script src="./scripts/rs-chat-widget.js" defer></script>
   </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 Ryan Schmidt</p>
+  </footer>
   <script>
     // Ensure the homepage puts the AI input first and avoids duplicate cards.
     (function(){

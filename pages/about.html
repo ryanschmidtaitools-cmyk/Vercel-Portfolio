@@ -38,6 +38,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
   <link rel="manifest" href="../site.webmanifest">
   <link rel="llms" href="/assets/llms.txt" type="text/markdown">
+<link rel="llms" href="/assets/llms-full.txt" type="text/markdown">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -223,6 +224,7 @@
 
 
   <body class="page-about">
+  <a href="#main" class="skip-to-content">Skip to content</a>
   <main id="main" class="site-main">
     <h1 class="sr-only">About Ryan Schmidt</h1>
     <!-- Leadership section -->
@@ -513,24 +515,26 @@
   </main>
 
   <!-- Same fixed floating bottom nav -->
-  <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
-    <span class="hamburger-inner" aria-hidden="true"></span>
-  </button>
-  <div class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" role="menu">
-    <a href="../index.html" role="menuitem">Home</a>
-    <a href="../pages/about.html" role="menuitem" aria-current="page">About</a>
+  <header>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
+      <span class="hamburger-inner" aria-hidden="true"></span>
+    </button>
+    <nav class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="../pages/about.html" aria-current="page">About</a>
         <div class="menu-item-group">
-          <span class="menu-trigger" role="menuitem" tabindex="0">Case Studies</span>
+          <button class="menu-trigger" aria-haspopup="true" aria-expanded="false">Case Studies</button>
           <div class="menu-submenu">
-            <a href="../pages/dashboard.html" role="menuitem">AI‑Powered Dashboards</a>
-            <a href="../pages/inventory.html" role="menuitem">Real-Time Inventory</a>
-            <a href="../pages/member-portal-overhaul.html" role="menuitem">i4cp Member Portal</a>
-            <a href="../pages/ai-coding-portfolio.html" role="menuitem">AI-Coding my Portfolio</a>
+            <a href="../pages/dashboard.html">AI‑Powered Dashboards</a>
+            <a href="../pages/inventory.html">Real-Time Inventory</a>
+            <a href="../pages/member-portal-overhaul.html">i4cp Member Portal</a>
+            <a href="../pages/ai-coding-portfolio.html">AI-Coding my Portfolio</a>
           </div>
         </div>
-    <a href="../assets/ryan-schmidt-resume-june-2026.pdf" role="menuitem" target="_blank" rel="noopener">Resume</a>
-    <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener" role="menuitem">LinkedIn</a>
-  </div>
+      <a href="../assets/ryan-schmidt-resume-june-2026.pdf" target="_blank" rel="noopener">Resume</a>
+      <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </header>
 
   <div class="ai-mini-wrapper" data-assistant-trigger>
     <input type="text" id="ai-mini-input" class="ai-mini-input" placeholder="Ask…" autocomplete="off" aria-label="Ask about Ryan's work, case studies, or role fit" />
@@ -549,6 +553,9 @@
 
   <script src="../scripts/rs-chat-widget.js" defer></script>
 
+  <footer class="site-footer">
+    <p>&copy; 2026 Ryan Schmidt</p>
+  </footer>
 </body>
 
 </html>

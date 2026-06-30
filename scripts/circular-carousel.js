@@ -33,9 +33,39 @@
     this.container.classList.add('circular-carousel');
     this.track.classList.add('circular-carousel__track');
 
+    // --- aria-live region for slide announcements ---
+    this.liveRegion = document.createElement('div');
+    this.liveRegion.setAttribute('aria-live', 'polite');
+    this.liveRegion.setAttribute('aria-atomic', 'true');
+    this.liveRegion.className = 'carousel-live-region';
+    this.liveRegion.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+    this.container.appendChild(this.liveRegion);
+
+    // --- pause/play button ---
+    this.pauseBtn = document.createElement('button');
+    this.pauseBtn.className = 'carousel-pause-btn';
+    this.pauseBtn.setAttribute('aria-label', 'Pause slideshow');
+    this.pauseBtn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
+    this.container.appendChild(this.pauseBtn);
+
+    this.pauseBtn.addEventListener('click', function () {
+      if (self.isPaused) {
+        self.isPaused = false;
+        self.pauseBtn.setAttribute('aria-label', 'Pause slideshow');
+        self.pauseBtn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>';
+        if (!reducedMotion) self.startAutoplay();
+      } else {
+        self.isPaused = true;
+        self.pauseBtn.setAttribute('aria-label', 'Play slideshow');
+        self.pauseBtn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>';
+        self.stopAutoplay();
+      }
+    });
+
     this.slides.forEach(function (slide, i) {
       slide.classList.add('circular-carousel__slide');
       slide.setAttribute('data-index', i);
+      slide.setAttribute('tabindex', '0');
       slide.style.position = 'absolute';
       slide.style.top = '50%';
       slide.style.left = '50%';
@@ -114,6 +144,17 @@
         figcaption.style.opacity = offset === 0 ? '1' : '0';
       }
     });
+
+    // Announce the active slide
+    var activeSlide = this.slides[this.activeIndex];
+    var slideLabel = activeSlide ? activeSlide.querySelector('figcaption') : null;
+    var announcement = 'Slide ' + (this.activeIndex + 1) + ' of ' + this.total;
+    if (slideLabel) {
+      announcement += ': ' + slideLabel.textContent.trim();
+    }
+    if (this.liveRegion) {
+      this.liveRegion.textContent = announcement;
+    }
   };
 
   CircularCarousel.prototype.goTo = function (index) {

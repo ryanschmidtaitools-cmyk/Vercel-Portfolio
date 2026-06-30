@@ -4,8 +4,8 @@
     "description": "Portfolio of Ryan Schmidt, Senior Product Designer in Austin, TX.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#EEF1F4",
-    "theme_color": "#EEF1F4",
+    "background_color": "#F5F5F5",
+    "theme_color": "#F5F5F5",
     "icons": [
       {
         "src": "./apple-touch-icon.png",

@@ -40,6 +40,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="manifest" href="../site.webmanifest">
   <link rel="llms" href="/assets/llms.txt" type="text/markdown">
+<link rel="llms" href="/assets/llms-full.txt" type="text/markdown">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -246,7 +247,7 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" as="style">
   
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:site_name" content="Ryan Schmidt — Senior Product Designer">
   <meta property="og:title" content="Real-Time Inventory — Ryan Schmidt">
   <meta property="og:description" content="Case study: Single real-time inventory view replacing spreadsheets. +18% recurring revenue, +8% product adoption over one year.">
@@ -267,6 +268,7 @@
 </head>
 
   <body>
+    <a href="#main" class="skip-to-content">Skip to content</a>
     <main id="main" class="site-main">
       <article class="case-study case-study--inventory" aria-labelledby="title">
         <header class="tldr" aria-label="Executive summary">
@@ -452,7 +454,7 @@
 
           <div class="dh-carousel" role="region" aria-roledescription="carousel" aria-label="Design highlights">
 
-            <div class="dh-track" role="region" aria-label="Case study screenshots" aria-roledescription="carousel">
+            <div class="dh-track" aria-label="Case study screenshots">
               <figure class="dh-slide">
                 <video autoplay loop muted playsinline width="2880" height="1496">
                   <source src="../Pictures/Inventory/Inventory Assets.mp4" type="video/mp4">
@@ -529,24 +531,26 @@
     </main>
 
     <!-- Fixed floating bottom nav -->
-    <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
-      <span class="hamburger-inner" aria-hidden="true"></span>
-    </button>
-    <div class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" role="menu">
-      <a href="../index.html" role="menuitem">Home</a>
-      <a href="../pages/about.html" role="menuitem">About</a>
-        <div class="menu-item-group">
-          <span class="menu-trigger" role="menuitem" tabindex="0">Case Studies</span>
-          <div class="menu-submenu">
-            <a href="../pages/dashboard.html" role="menuitem">AI‑Powered Dashboards</a>
-            <a href="../pages/inventory.html" role="menuitem" aria-current="page">Real-Time Inventory</a>
-            <a href="../pages/member-portal-overhaul.html" role="menuitem">i4cp Member Portal</a>
-            <a href="../pages/ai-coding-portfolio.html" role="menuitem">AI-Coding my Portfolio</a>
+    <header>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="hamburgerMenu" aria-expanded="false">
+        <span class="hamburger-inner" aria-hidden="true"></span>
+      </button>
+      <nav class="hamburger-menu" id="hamburgerMenu" aria-hidden="true" aria-label="Main navigation">
+        <a href="../index.html">Home</a>
+        <a href="../pages/about.html">About</a>
+          <div class="menu-item-group">
+            <button class="menu-trigger" aria-haspopup="true" aria-expanded="false">Case Studies</button>
+            <div class="menu-submenu">
+              <a href="../pages/dashboard.html">AI‑Powered Dashboards</a>
+              <a href="../pages/inventory.html" aria-current="page">Real-Time Inventory</a>
+              <a href="../pages/member-portal-overhaul.html">i4cp Member Portal</a>
+              <a href="../pages/ai-coding-portfolio.html">AI-Coding my Portfolio</a>
+            </div>
           </div>
-        </div>
-      <a href="../assets/ryan-schmidt-resume-june-2026.pdf" role="menuitem" target="_blank" rel="noopener">Resume</a>
-      <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener" role="menuitem">LinkedIn</a>
-    </div>
+        <a href="../assets/ryan-schmidt-resume-june-2026.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="https://www.linkedin.com/in/ryanschmidt1989/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </header>
 
     <div class="ai-mini-wrapper" data-assistant-trigger>
       <input type="text" id="ai-mini-input" class="ai-mini-input" placeholder="Ask…" autocomplete="off" aria-label="Ask about Ryan's work, case studies, or role fit" />
@@ -556,10 +560,12 @@
     <!-- GSAP for smooth chat widget animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <!-- Consolidated JavaScript -->
-    <script src="../scripts/scripts.js"></script>
+    <script src="../scripts/scripts.js" defer></script>
     <script src="../scripts/circular-carousel.js" defer></script>
     <script src="../scripts/rs-chat-widget.js" defer></script>
-
+    <footer class="site-footer">
+      <p>&copy; 2026 Ryan Schmidt</p>
+    </footer>
   </body>
 </html>
 

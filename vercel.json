@@ -18,27 +18,27 @@
     {
       "source": "/about.html",
       "destination": "/pages/about.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/dashboard.html",
       "destination": "/pages/dashboard.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/inventory.html",
       "destination": "/pages/inventory.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/ai-coding-portfolio.html",
       "destination": "/pages/ai-coding-portfolio.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/member-portal-overhaul.html",
       "destination": "/pages/member-portal-overhaul.html",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/design-system.html",
@@ -48,12 +48,12 @@
     {
       "source": "/portfolio-kb.json",
       "destination": "/assets/portfolio-kb.json",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/llms.txt",
       "destination": "/assets/llms.txt",
-      "permanent": false
+      "permanent": true
     }
   ]
 }

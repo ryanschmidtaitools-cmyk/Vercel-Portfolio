@@ -90,7 +90,7 @@
           menu.setAttribute('aria-hidden', open ? 'false' : 'true');
           document.body.classList.toggle('menu-open', open);
 
-          const links = Array.from(menu.querySelectorAll('a'));
+          const focusable = Array.from(menu.querySelectorAll('a, button:not([disabled])'));
           if (open) {
             const onMenuKey = (e) => {
               if (e.key === 'Escape') {
@@ -100,8 +100,8 @@
                 return;
               }
               if (e.key === 'Tab') {
-                const first = links[0];
-                const last = links[links.length - 1];
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
                 if (e.shiftKey && document.activeElement === first) {
                   e.preventDefault();
                   last.focus();
@@ -138,8 +138,11 @@
           hamburger.focus();
         });
 
-        menu.querySelectorAll('a').forEach((link, index) => {
-          link.style.transitionDelay = `${index * 20}ms`;
+        const allMenuItems = Array.from(menu.querySelectorAll('a, .menu-trigger'));
+        let itemIndex = 0;
+        allMenuItems.forEach((item) => {
+          item.style.transitionDelay = `${itemIndex * 20}ms`;
+          itemIndex++;
         });
 
         // Submenu click toggle with staggered drop
@@ -153,13 +156,17 @@
             if (isOpen) {
               links.forEach(link => link.style.transitionDelay = '0ms');
               group.classList.remove('is-open');
+              trigger.setAttribute('aria-expanded', 'false');
             } else {
               group.classList.add('is-open');
+              trigger.setAttribute('aria-expanded', 'true');
               links.forEach((link, i) => { link.style.transitionDelay = `${i * 30}ms`; });
               menu.querySelectorAll('.menu-item-group.is-open').forEach(other => {
                 if (other !== group) {
                   Array.from(other.querySelectorAll('.menu-submenu a')).forEach(l => l.style.transitionDelay = '0ms');
                   other.classList.remove('is-open');
+                  const otherTrigger = other.querySelector('.menu-trigger');
+                  if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
                 }
               });
             }
@@ -666,31 +673,6 @@
 // ============================================================================
 // Feature 9: Subtle Grain / Noise Overlay (Phase 2)
 // ============================================================================
-(function () {
-  // Keep the grain effect subtle and scoped to the home page.
-  if (!document.body.classList.contains("is-home")) return;
-
-  const noise = document.createElement("div");
-  noise.id = "rs-noise-overlay";
-  noise.setAttribute("aria-hidden", "true");
-  // A tiny 200x200 SVG noise pattern encoded as a data URI
-  const noiseSvg = "data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E";
-
-  noise.style.cssText = [
-    "position:fixed",
-    "inset:0",
-    "z-index:999999", // Put it above almost everything except maybe modals
-    "pointer-events:none",
-    "opacity:0.4",
-    "mix-blend-mode:overlay",
-    "background-image:url(\"" + noiseSvg + "\")",
-    "background-repeat:repeat",
-  ].join(";");
-
-  document.body.appendChild(noise);
-})();
-
-// ============================================================================
 // Feature 11: Scroll-Linked Image Reveals (Phase 2)
 // ============================================================================
 (function () {
@@ -842,8 +824,26 @@
       });
     }
 
-    buttons.forEach((button) => {
+    function activateButton(index) {
+      if (index < 0 || index >= buttons.length) return;
+      updateState(buttons[index].dataset.compareButton);
+      buttons[index].focus();
+    }
+
+    buttons.forEach((button, i) => {
       button.addEventListener("click", () => updateState(button.dataset.compareButton));
+      button.addEventListener("keydown", (e) => {
+        let newIndex = -1;
+        if (e.key === "ArrowRight") {
+          newIndex = i + 1 < buttons.length ? i + 1 : 0;
+        } else if (e.key === "ArrowLeft") {
+          newIndex = i - 1 >= 0 ? i - 1 : buttons.length - 1;
+        }
+        if (newIndex >= 0) {
+          e.preventDefault();
+          activateButton(newIndex);
+        }
+      });
     });
     updateState(initial);
   });

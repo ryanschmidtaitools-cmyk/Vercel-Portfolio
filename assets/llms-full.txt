@@ -1,0 +1,182 @@
+# Ryan Schmidt — Senior Product Designer
+
+> Ryan Schmidt is a CX/UX designer at i4cp focused on information architecture, member experience, and AI-augmented product UX. He turns messy research and legacy interfaces into systems that scale, with measurable outcomes like task success, component reuse, and adoption. Strengths sit at the seam of design and engineering: token-first design systems, prototyping in code, and AI tooling like Cursor and Claude. Based in Austin, TX.
+
+## Site map
+
+- https://ryanschmidt.design/ — Homepage
+- https://ryanschmidt.design/pages/about.html — About Ryan
+- https://ryanschmidt.design/pages/dashboard.html — AI-Powered Dashboards (case study)
+- https://ryanschmidt.design/pages/inventory.html — Real-Time Inventory (case study)
+- https://ryanschmidt.design/pages/member-portal-overhaul.html — i4cp Member Portal Redesign (case study)
+- https://ryanschmidt.design/pages/ai-coding-portfolio.html — AI-Coding my Portfolio (case study)
+- https://ryanschmidt.design/sitemap.xml — XML sitemap
+- https://ryanschmidt.design/robots.txt — Robots exclusion
+- https://ryanschmidt.design/404.html — 404 page
+
+## Contact & profiles
+
+- Email: via LinkedIn
+- LinkedIn: https://www.linkedin.com/in/ryanschmidt1989/
+- Resume: https://ryanschmidt.design/assets/ryan-schmidt-resume-june-2026.pdf
+- AI assistant endpoint: https://ryanschmidt.design/api/chat (POST)
+
+## About
+
+### Leadership
+
+Sole designer at i4cp. Owns the design system, UX standards, and shapes product decisions early. Writes PRDs, influences the roadmap, and plays a big role in product and UX strategy.
+
+At D-Tools, led twice-weekly design reviews with 5 designers and 6 PMs. Built a design review system that surfaced disagreements early enough to change direction.
+
+Key timeline:
+- Oct 2021 — Built design review system at D-Tools
+- Jan 2025 — Promoted to Senior Product Designer
+- Present — Leading UX at i4cp
+
+### Builder
+
+Makes the shift from designing interfaces to building them. Uses Cursor + OpenCode to take product from concept through to staging without an engineering handoff. This portfolio is entirely hand-coded — no templates, no CMS, no static site generator.
+
+Built a custom AI chat assistant powered by Gemini + Supabase pgvector (1,400+ embedded chunks, 768-dimension vector index) that answers questions about Ryan's work, case studies, and role fit.
+
+### Mentorship
+
+UX mentor at Designlab from 2021 to 2026. Promoted to Senior Facilitator in 2023. Led 400+ group critique sessions and mentored 1,500 designers. Wrapped up after 5 years to focus on family and day job.
+
+### Personal
+
+Lives in Austin, TX with wife, toddler, and two cats (Pickles and Pesto). Hobbies: beer-league hockey captain, learning guitar, cooking, originally from Pittsburgh.
+
+## Case studies
+
+### AI-Powered Dashboards
+
+https://ryanschmidt.design/pages/dashboard.html
+
+**Problem:** Users ignored default dashboards. Teams needed customizable views tailored to their specific business needs.
+
+**Role:** Lead Product Designer & acting PM (5 months). Owned problem definition, research, design, scope, and delivery alongside 4 engineers.
+
+**Research:** 11 user interviews (7 power users, 4 stakeholders). Key insight: users needed to see data first before they could explore or ask questions.
+
+**Key decision:** Pushed for a hybrid approach — dashboards as foundation, AI layered on top for summarization — instead of the CTO's preferred AI-first direction. Research earned the right to push back.
+
+**Design approach:** Role-based templates with fast customization. AI limited to verifiable metrics visible on screen.
+
+**Validation:** End-to-end Figma prototype tested with 5 target users. 4/5 said templates matched their workflow. All users customized without guidance.
+
+**Impact:**
+- Dashboard engagement: +71% (beta)
+- Multi-dashboard adoption: 62% (beta)
+- Average interaction depth: 2.0 (beta)
+
+**Lessons:** Research is how you earn the right to push back. Users don't know what they don't know — they need data visible before they can ask good questions.
+
+### Real-Time Inventory
+
+https://ryanschmidt.design/pages/inventory.html
+
+**Problem:** Project managers spent 2-3 hours/day reconciling stock counts across spreadsheets. Equipment went missing because nobody trusted the numbers. Enterprise prospects expected integrated inventory before signing.
+
+**Role:** Lead Product Designer (team of 3)
+
+**Research:** 6 user interviews + workflow mapping sessions. One power user maintained a 14-tab spreadsheet with 15-20% error rates. Two distinct user segments: small teams needing quick quantity confidence, larger teams needing asset-level traceability.
+
+**Key decision:** Pushed for real-time unified inventory system across projects and locations instead of a simpler periodic-update approach.
+
+**Design responses:** Receiving defines truth (inventory updates at PO receipt). Unified data model removes duplication. Low-stock alerts surface risk early.
+
+**Validation:** 3 rounds of high-fidelity Figma tests. Quantity-first by default, asset-level when needed.
+
+**Impact:**
+- Product adoption: +8% (1 year)
+- Recurring revenue: +18% (1 year)
+- MVP shipped: December 2024
+
+**Lessons:** Operational products earn trust through state clarity. Users don't just need to know how many — they need to understand why the number is trustworthy.
+
+### i4cp Member Portal Redesign
+
+https://ryanschmidt.design/pages/member-portal-overhaul.html
+
+**Status:** In progress — designs complete, validation testing planned July 2026.
+
+**Problem:** Members couldn't find what they came for. The portal's navigation didn't reflect how content was actually structured. A well-validated content taxonomy existed but wasn't visible in the UI.
+
+**Role:** Lead UX Designer/PM (sole designer). Owning IA, designs, and project management.
+
+**Content hierarchy (4 levels):**
+1. Areas of Focus — broad practice domains (leadership, talent, culture)
+2. Priorities — strategic questions within each area
+3. Topics — specific subject clusters within each priority
+4. Individual content — articles, videos, webinars, benchmarks
+
+**Key decision:** Progressive disclosure over flat navigation. Areas of Focus orient at the top level; deeper levels reveal progressively as members narrow intent.
+
+**Constraints:** Parallel rebrand (third-party consultant evolving visual identity simultaneously). MVP scope means restructured navigation and refreshed look/feel ship first, deeper UX improvements follow.
+
+**Progress:** Designs complete, in staging for QA. Moderated member testing planned for July 2026, focused on task success across the four IA levels.
+
+### AI-Coding my Portfolio
+
+https://ryanschmidt.design/pages/ai-coding-portfolio.html
+
+**Problem:** Design leaders who can execute make better decisions earlier. Needed a portfolio that proved ability to build, not just design.
+
+**Role:** End-to-end — UX, UI, front-end architecture, AI-assisted engineering.
+
+**Stack:** HTML, CSS, JavaScript, Three.js (experimental). Tools: Cursor, Antigravity, OpenCode CLI, Vercel, GitHub, Supabase.
+
+**Approach:** Skipped Figma completely — designed through code alone. AI tools accelerated workflow but didn't replace structural thinking.
+
+**System architecture:** Prompts → Patterns → Components → Features. Structured prompts connected to real product features.
+
+**Interactive system demo:** Visits a question → Netlify function (orchestrator) → Branch: Supabase pgvector (1,400+ chunks) + Gemini 2.5 Flash → Answer. System metrics: ~1.3k tokens generated, 12 chunks retrieved, 26ms vector search.
+
+**Key decisions:** AI treated like a junior engineer — needs direction, constraints, review. Patterns built early for reuse. Database-driven RAG replaced a single JSON file with semantic search.
+
+**Impact:** Fully custom site — no templates, no CMS, no static site generator. Repeatable workflow: idea to working feature in a single session.
+
+**Lessons:** AI amplifies structure. Speed needs discipline. Iteration is the real advantage.
+
+## Design system
+
+Custom CSS custom properties defining:
+- **Spacing:** 8px grid (4px through 128px) with fluid section padding
+- **Typography:** IBM Plex Sans, fixed scale (12px-38px) + fluid display scale (28px-72px)
+- **Line heights:** 1.1 (display) through 1.7 (prose)
+- **Radii:** 4px, 8px, 12px, 999px
+- **Motion:** cubic-bezier(0.16, 1, 0.3, 1) easing, 120ms/180ms durations
+- **Colors:** Slate neutrals, desaturated indigo accent (#4F6EF7), 5-level text hierarchy
+- **Shadows:** 3 tiers with 1px border simulation
+- **Semantic surfaces:** base, elevated, elevated-strong, code, dark variants
+- **Accessibility:** Visible focus rings, reduced motion support, skip-to-content link
+
+## AI assistant
+
+An AI chat widget powered by Gemini 2.5 Flash is available on every page. It answers questions about Ryan's background, case studies, working style, and role fit using:
+- RAG retrieval from a kb_chunks table in Supabase (pgvector, 768d)
+- An anti-hallucination policy preventing invented metrics or outcomes
+- Structured fit-matching via intent-based routing (28 intents)
+- A deterministic fallback for common questions when the LLM is unavailable
+
+Endpoint: POST /api/chat
+
+## Specialties
+
+- Information Architecture
+- Design Systems (token-first)
+- AI-augmented Product UX
+- Member Experience
+- Design + Engineering Collaboration
+
+## Skills
+
+Information architecture, Design systems, Onboarding and member experience, Content discovery, Data visualization, UX strategy, Design tokens, Prototyping in code, Research synthesis, AI-augmented product UX.
+
+Engineering skills: HTML, CSS, JavaScript, React fundamentals, TypeScript, Tailwind, Radix, shadcn. AI tooling: Cursor, Copilot, Claude.
+
+## Languages
+
+The site is authored in English only.
