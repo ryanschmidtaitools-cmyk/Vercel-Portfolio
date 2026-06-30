@@ -212,7 +212,7 @@ html {
   --text-heading: var(--text);
   --text-body: var(--text-light);
   --text-secondary: var(--slate-600);
-  --text-muted: #6B7280;
+  --text-muted: #5F6B7A;
   --text-tertiary: #5F6577;
 
   /* Text on colored backgrounds */
@@ -229,13 +229,6 @@ html {
 
   --color-primary: var(--accent);
 
-  /* === Deprecated aliases (keep until call sites migrate) === */
-  --accent-cool: var(--accent);
-  --accent-cool-bright: var(--accent-text);
-  --accent-cool-soft: var(--accent-soft);
-  --accent-92: rgb(79 110 247 / 0.92);
-  --cool-88: rgb(79 110 247 / 0.88);
-
   /* === Status colors === */
   --green: #059669;
   --green-soft: rgb(5 150 105 / 0.12);
@@ -246,12 +239,8 @@ html {
   --blue: #2563EB;
   --blue-soft: rgb(37 99 235 / 0.12);
 
-  --color-success: #00C389;
-  --color-success-soft: rgb(0 195 137 / 0.12);
-
-  /* Legacy aliases */
-  --accent-success: var(--color-success);
-  --accent-success-soft: var(--color-success-soft);
+  --accent-success: #00C389;
+  --accent-success-soft: rgb(0 195 137 / 0.12);
 
   /* Focus */
   --focus-ring: 0 0 0 3px rgb(var(--rgb-accent-small) / 0.28);
@@ -366,7 +355,7 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--accent-92);
+  background-color: rgb(79 110 247 / 0.92);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -484,7 +473,7 @@ a {
 }
 
 a:hover {
-  text-decoration-color: var(--accent-92, var(--accent));
+  text-decoration-color: var(--accent);
 }
 
 a,
@@ -1256,7 +1245,7 @@ button:active {
     height: auto;
     background: linear-gradient(180deg,
         var(--surface-2) 0%,
-        var(--accent-cool) 50%,
+        var(--accent) 50%,
         var(--surface-2) 100%);
   }
 
@@ -2016,7 +2005,7 @@ button:active {
 }
 
 .case-study section :where(ul, ol) ::marker {
-  color: var(--cool-88);
+  color: rgb(79 110 247 / 0.88);
   font-weight: var(--weight-semibold);
 }
 
@@ -2041,6 +2030,8 @@ button:active {
   box-shadow: var(--shadow-card);
 }
 
+.case-study .callout h2,
+.case-study aside h2,
 .case-study .callout h3,
 .case-study aside h3 {
   margin-top: 0;
@@ -2773,7 +2764,7 @@ button:active {
 }
 
 .case-study--ai-coding-portfolio {
-  --section-accent: var(--accent-cool-bright);
+  --section-accent: var(--accent-text);
   --section-accent-soft: var(--accent-cool-soft);
 }
 

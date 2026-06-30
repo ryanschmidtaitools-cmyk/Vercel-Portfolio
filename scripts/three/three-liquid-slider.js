@@ -111,6 +111,9 @@
     initShader();
     createTitles();
     updateDOM();
+    // Fade out CSS loading placeholder
+    var placeholder = document.querySelector('[data-hero-placeholder]');
+    if (placeholder) placeholder.style.opacity = '0';
   });
 
   let material;

@@ -69,9 +69,10 @@
       const menu = document.getElementById('hamburgerMenu');
 
       if (hamburger && menu) {
+        let onMenuKey = null;
+
         const toggleMenu = (event) => {
           if (event) event.stopPropagation();
-          // Prevent duplicate handlers from immediately toggling state twice
           if (window.__hamburgerToggleLocked) return;
           window.__hamburgerToggleLocked = true;
           setTimeout(() => { window.__hamburgerToggleLocked = false; }, 40);
@@ -92,26 +93,29 @@
 
           const focusable = Array.from(menu.querySelectorAll('a, button:not([disabled])'));
           if (open) {
-            const onMenuKey = (e) => {
-              if (e.key === 'Escape') {
-                toggleMenu();
-                hamburger.focus();
-                document.removeEventListener('keydown', onMenuKey);
-                return;
-              }
-              if (e.key === 'Tab') {
-                const first = focusable[0];
-                const last = focusable[focusable.length - 1];
-                if (e.shiftKey && document.activeElement === first) {
-                  e.preventDefault();
-                  last.focus();
-                } else if (!e.shiftKey && document.activeElement === last) {
-                  e.preventDefault();
-                  first.focus();
+            if (!onMenuKey) {
+              onMenuKey = (e) => {
+                if (e.key === 'Escape') {
+                  toggleMenu();
+                  hamburger.focus();
+                  return;
                 }
-              }
-            };
+                if (e.key === 'Tab') {
+                  const first = focusable[0];
+                  const last = focusable[focusable.length - 1];
+                  if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                  } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                  }
+                }
+              };
+            }
             document.addEventListener('keydown', onMenuKey);
+          } else if (onMenuKey) {
+            document.removeEventListener('keydown', onMenuKey);
           }
         };
 
@@ -193,7 +197,12 @@
 (function(){
   const btn = document.querySelector('.back-to-top');
   if (!btn) return;
-  const onScroll = () => btn.classList.toggle('visible', window.scrollY > 400);
+  const onScroll = () => {
+    const show = window.scrollY > 400;
+    btn.classList.toggle('visible', show);
+    if (show) btn.removeAttribute('tabindex');
+    else btn.setAttribute('tabindex', '-1');
+  };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 })();

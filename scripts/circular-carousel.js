@@ -110,6 +110,20 @@
       if (!reducedMotion) self.startAutoplay();
     });
 
+    // Swipe support
+    this.container.style.touchAction = 'pan-y';
+    var swipeStartX = 0;
+    this.container.addEventListener('pointerdown', function (e) {
+      swipeStartX = e.clientX;
+    });
+    this.container.addEventListener('pointerup', function (e) {
+      var dx = e.clientX - swipeStartX;
+      if (Math.abs(dx) > 30) {
+        if (dx < 0) self.next();
+        else self.prev();
+      }
+    });
+
     this.render();
 
     if (!reducedMotion) {

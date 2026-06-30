@@ -412,7 +412,7 @@
           </div>
 
           <div class="asd-prompt-bar">
-            <input type="text" class="asd-fake-input" id="asdInput" placeholder="What has Ryan built related to AI product design?" autocomplete="off">
+            <input type="text" class="asd-fake-input" id="asdInput" placeholder="What has Ryan built related to AI product design?" autocomplete="off" aria-label="Type a command">
             <button class="asd-run-btn" id="asdRun" type="button">Run system</button>
             <button class="asd-reset-btn" id="asdReset" type="button" hidden>Reset</button>
           </div>
@@ -837,7 +837,7 @@
     </div>
 
     <!-- GSAP for smooth chat widget animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <!-- Consolidated JavaScript -->
     <script src="../scripts/scripts.js" defer></script>
     <script src="../scripts/rs-chat-widget.js" defer></script>

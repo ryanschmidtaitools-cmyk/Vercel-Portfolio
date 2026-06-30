@@ -257,6 +257,16 @@
         box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24), 0 0 0 2px rgb(79 110 247 / 0.12);
         background: rgba(6, 12, 22, 1);
       }
+      .text.shake {
+        animation: shake 0.4s ease;
+      }
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-8px); }
+        40% { transform: translateX(8px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+      }
       .text::placeholder { color: rgba(255,255,255,0.45); font-weight: var(--weight-regular, 400); line-height: 54px; }
       @keyframes gentleGlow {
         0%, 100% { box-shadow: 0 0 0 0 rgba(79, 110, 247, 0.4); }
@@ -282,6 +292,10 @@
       .send:hover {
         transform: translateY(-1px);
         background: var(--accent-hover, #3B5BDB);
+      }
+      .send:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
 
 
@@ -1328,7 +1342,11 @@ if (savedHist.length > 0) {
   async function send(optionalText) {
 
     const text = (typeof optionalText === 'string' ? optionalText : inputEl.value).trim();
-    if (!text) return;
+    if (!text) {
+      inputEl.classList.add('shake');
+      setTimeout(() => inputEl.classList.remove('shake'), 400);
+      return;
+    }
     if (inFlight) return;
 
     // URLs are handled server-side — send them through to the API
@@ -1421,6 +1439,7 @@ if (savedHist.length > 0) {
       };
       if (state.sectionContext) payload.sectionContext = state.sectionContext;
 
+      const timeoutTimer = setTimeout(() => currentController.abort(), 30000);
       const res = await fetch(chatApi, {
         method:'POST',
         headers:{ 'Content-Type':'application/json' },
@@ -1428,6 +1447,7 @@ if (savedHist.length > 0) {
         signal: currentController.signal
       });
 
+      clearTimeout(timeoutTimer);
       state.sectionContext = null;
 
       const data = await res.json().catch(() => ({}));
@@ -1529,6 +1549,7 @@ if (savedHist.length > 0) {
       state.history.push({ role:'assistant', content: ans });
       saveHistory();
     } catch (e) {
+      clearTimeout(timeoutTimer);
       if (e.name === 'AbortError') {
         thinking.remove();
       } else {
