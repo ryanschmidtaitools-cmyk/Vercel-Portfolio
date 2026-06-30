@@ -824,7 +824,6 @@
       panels.forEach((panel) => {
         const active = panel.dataset.compareState === current;
         panel.classList.toggle("is-active", active);
-        panel.hidden = !active;
       });
     }
 
