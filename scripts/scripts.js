@@ -189,6 +189,15 @@
   });
 })();
 
+// Back-to-top button visibility
+(function(){
+  const btn = document.querySelector('.back-to-top');
+  if (!btn) return;
+  const onScroll = () => btn.classList.toggle('visible', window.scrollY > 400);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
 // ============================================================================
 // Parallax functionality
 // ============================================================================

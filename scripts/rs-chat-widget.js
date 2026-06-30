@@ -53,7 +53,7 @@
 
       /* Drawer */
       .panel {
-        position: fixed; top: auto; right: 12px; bottom: 12px;
+        position: fixed; top: auto; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
         width: min(444px, calc(100vw - 24px));
         height: 80px;
         display: flex; flex-direction: column;

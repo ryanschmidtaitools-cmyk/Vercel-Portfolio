@@ -1891,7 +1891,8 @@ Never label sections (no "Strengths:", "Proof:", "Mapping:", or "Closing:" prefi
       temperature,
       topP: 0.9,
       topK: 32,
-      maxOutputTokens
+      maxOutputTokens,
+      responseMimeType: "application/json"
     }
   };
 
