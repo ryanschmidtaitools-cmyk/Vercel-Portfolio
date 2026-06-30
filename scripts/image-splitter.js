@@ -86,6 +86,7 @@
       this.after.style.clipPath = 'inset(0 0 0 ' + percent + '%)';
       this.handle.style.left = percent + '%';
     }
+    this.handle.setAttribute('aria-valuenow', Math.round(percent));
   };
 
   document.addEventListener('DOMContentLoaded', function () {

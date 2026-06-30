@@ -193,7 +193,7 @@
   --text-body:      var(--text-light);
   --text-secondary: var(--slate-600);
   --text-muted:     #6B7280;
-  --text-tertiary:  #6D7488;
+  --text-tertiary:  #5F6577;
 
   /* Text on colored backgrounds */
   --text-on-accent: #FFFFFF;
@@ -443,13 +443,17 @@ pre code {
   scroll-snap-type: none;
 }
 
-/* Site footer landmark */
+/* Site footer landmark — visually hidden, accessible to screen readers */
 .site-footer {
-  padding: var(--space-4) var(--page-gutter);
-  text-align: center;
-  font-size: var(--fs-sm);
-  color: var(--text-muted);
-  border-top: 1px solid var(--border-subtle);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
 }
 
 .is-home .site-main {
@@ -2163,6 +2167,7 @@ code {
   overflow: hidden;
   background: var(--surface-elevated);
   box-shadow: var(--shadow-card);
+  border-radius: var(--radius-md);
   position: relative;
 }
 
