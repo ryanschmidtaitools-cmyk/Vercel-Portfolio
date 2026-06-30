@@ -28,9 +28,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.counter.dev" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
     <!-- Fonts (italics + only 400/500/600/700) -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
     <!-- CSS (preload + apply) -->
     <link rel="stylesheet" href="../styles.css">
@@ -843,7 +844,7 @@
     <script src="../scripts/rs-chat-widget.js" defer></script>
     <script src="../scripts/circular-carousel.js" defer></script>
     <button class="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
     <footer class="site-footer">
       <p>&copy; 2026 Ryan Schmidt</p>
