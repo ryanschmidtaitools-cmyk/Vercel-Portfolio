@@ -392,13 +392,6 @@
 })();
 
 // ============================================================================
-// Carousel functionality for design highlights
-// ============================================================================
-(function () {
-  
-})();
-
-// ============================================================================
 // Image Parallax (Inner Scroll)
 // ============================================================================
 (function () {
@@ -617,7 +610,7 @@
 
   function attachLightbox() {
     // Attach to carousel slide images
-    document.querySelectorAll(".dh-slide img, .case-study img:not(.no-lightbox)").forEach((img) => {
+    document.querySelectorAll(".case-study-media img, .case-study img:not(.no-lightbox)").forEach((img) => {
       if (img.dataset.lightboxBound) return;
       img.dataset.lightboxBound = "1";
       img.style.cursor = "zoom-in";
