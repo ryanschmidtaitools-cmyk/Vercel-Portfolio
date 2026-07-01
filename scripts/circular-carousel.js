@@ -3,15 +3,7 @@
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function getCircularOffset(index, activeIndex, total) {
-    var offset = index - activeIndex;
-    var half = Math.floor(total / 2);
-    if (offset > half) offset -= total;
-    if (offset < -half) offset += total;
-    return offset;
-  }
-
-  function CircularCarousel(container) {
+  function HorizontalCarousel(container) {
     this.container = container;
     this.track = container.querySelector('.dh-track');
     if (!this.track) return;
@@ -27,7 +19,7 @@
     this.init();
   }
 
-  CircularCarousel.prototype.init = function () {
+  HorizontalCarousel.prototype.init = function () {
     var self = this;
 
     this.container.classList.add('circular-carousel');
@@ -66,33 +58,30 @@
       slide.classList.add('circular-carousel__slide');
       slide.setAttribute('data-index', i);
       slide.setAttribute('tabindex', '0');
-      slide.style.position = 'absolute';
-      slide.style.top = '50%';
-      slide.style.left = '50%';
-      slide.style.margin = '0';
-      slide.style.willChange = 'transform, opacity';
       slide.style.cursor = 'pointer';
 
       var media = slide.querySelector(':scope > img, :scope > video');
       if (media && !media.closest('.image-splitter')) {
+        media.style.pointerEvents = 'none';
         media.style.width = '100%';
         media.style.height = 'auto';
-        media.style.display = 'block';
-        media.style.borderRadius = 'var(--radius-lg, 18px)';
-        media.style.pointerEvents = 'none';
       }
 
       var figcaption = slide.querySelector('figcaption');
       if (figcaption) {
         figcaption.style.position = 'absolute';
-        figcaption.style.bottom = '-2.25rem';
+        figcaption.style.bottom = '2rem';
         figcaption.style.left = '0';
         figcaption.style.right = '0';
         figcaption.style.textAlign = 'center';
         figcaption.style.fontSize = 'var(--fs-sm)';
         figcaption.style.color = 'var(--text-secondary)';
+        figcaption.style.padding = '0 var(--space-6)';
         figcaption.style.pointerEvents = 'none';
         figcaption.style.transition = 'opacity 0.4s ease';
+        figcaption.style.border = 'none';
+        figcaption.style.background = 'transparent';
+        figcaption.style.boxShadow = 'none';
       }
 
       slide.addEventListener('click', function () {
@@ -118,7 +107,7 @@
     });
     this.container.addEventListener('pointerup', function (e) {
       var dx = e.clientX - swipeStartX;
-      if (Math.abs(dx) > 30) {
+      if (Math.abs(dx) > 50) {
         if (dx < 0) self.next();
         else self.prev();
       }
@@ -131,31 +120,20 @@
     }
   };
 
-  CircularCarousel.prototype.getTransform = function (offset) {
-    var abs = Math.abs(offset);
-    var spacing = Math.min(220, window.innerWidth * 0.14);
-    var x = offset * spacing;
-    var scale = Math.max(0.35, 1 - abs * 0.2);
-    var opacity = Math.max(0.08, 1 - abs * 0.25);
-    var zIndex = Math.round(30 - abs * 7);
-    return { x: x, scale: scale, opacity: opacity, zIndex: zIndex };
-  };
-
-  CircularCarousel.prototype.render = function () {
+  HorizontalCarousel.prototype.render = function () {
     var self = this;
-    this.slides.forEach(function (slide, i) {
-      var offset = getCircularOffset(i, self.activeIndex, self.total);
-      var t = self.getTransform(offset);
+    var translateX = -(this.activeIndex * 100);
+    
+    this.track.style.transition = reducedMotion ? 'none' : 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    this.track.style.transform = 'translateX(' + translateX + '%)';
 
-      slide.style.transform = 'translateX(' + t.x + 'px) translateY(-50%) scale(' + t.scale + ')';
-      slide.style.opacity = t.opacity;
-      slide.style.zIndex = t.zIndex;
-      slide.style.pointerEvents = offset === 0 ? 'auto' : 'pointer';
-      slide.classList.toggle('circular-carousel__slide--active', offset === 0);
+    this.slides.forEach(function (slide, i) {
+      slide.classList.toggle('circular-carousel__slide--active', i === self.activeIndex);
+      slide.style.pointerEvents = i === self.activeIndex ? 'auto' : 'pointer';
 
       var figcaption = slide.querySelector('figcaption');
       if (figcaption) {
-        figcaption.style.opacity = offset === 0 ? '1' : '0';
+        figcaption.style.opacity = i === self.activeIndex ? '1' : '0';
       }
     });
 
@@ -171,7 +149,7 @@
     }
   };
 
-  CircularCarousel.prototype.goTo = function (index) {
+  HorizontalCarousel.prototype.goTo = function (index) {
     if (this.isTransitioning) return;
     this.isTransitioning = true;
     this.activeIndex = (index + this.total) % this.total;
@@ -182,29 +160,29 @@
     }, 650);
   };
 
-  CircularCarousel.prototype.next = function () {
+  HorizontalCarousel.prototype.next = function () {
     this.goTo(this.activeIndex + 1);
   };
 
-  CircularCarousel.prototype.prev = function () {
+  HorizontalCarousel.prototype.prev = function () {
     this.goTo(this.activeIndex - 1);
   };
 
-  CircularCarousel.prototype.handleSlideClick = function (index) {
+  HorizontalCarousel.prototype.handleSlideClick = function (index) {
     if (index === this.activeIndex) return;
     this.goTo(index);
   };
 
-  CircularCarousel.prototype.startAutoplay = function () {
+  HorizontalCarousel.prototype.startAutoplay = function () {
     if (this.isPaused || reducedMotion) return;
     var self = this;
     this.stopAutoplay();
     this.autoplayTimer = setInterval(function () {
       self.next();
-    }, 3500);
+    }, 4000);
   };
 
-  CircularCarousel.prototype.stopAutoplay = function () {
+  HorizontalCarousel.prototype.stopAutoplay = function () {
     if (this.autoplayTimer) {
       clearInterval(this.autoplayTimer);
       this.autoplayTimer = null;
@@ -214,7 +192,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var carousels = document.querySelectorAll('.dh-carousel');
     carousels.forEach(function (el) {
-      el.__circularInstance = new CircularCarousel(el);
+      el.__circularInstance = new HorizontalCarousel(el);
     });
   });
 
