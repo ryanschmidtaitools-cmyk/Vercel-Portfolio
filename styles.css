@@ -2958,28 +2958,6 @@ code {
   }
 }
 
-/* Skip-to-content link for keyboard users */
-.skip-to-content {
-  position: absolute;
-  top: -100%;
-  left: 16px;
-  z-index: 99999;
-  padding: 12px 20px;
-  background: var(--accent, #4F6EF7);
-  color: var(--text-on-accent);
-  font-size: var(--fs-sm, 14px);
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 0 0 var(--radius-md, 8px) var(--radius-md, 8px);
-  transition: top 180ms ease;
-}
-
-.skip-to-content:focus {
-  top: 0;
-  outline: 2px solid var(--accent, #4F6EF7);
-  outline-offset: 2px;
-}
-
 /* screen-reader only helper */
 .sr-only {
   position: absolute;
@@ -3839,10 +3817,6 @@ code {
 
   .site-main {
     padding: 0 !important;
-  }
-
-  .skip-to-content {
-    display: none;
   }
 
   .case-study figure {
