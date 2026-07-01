@@ -1903,7 +1903,7 @@ code {
   text-wrap: pretty;
 }
 
-.case-study section :where(ul, ol) ::marker {
+.case-study ::marker {
   color: rgb(79 110 247 / 0.88);
   font-weight: var(--weight-semibold);
 }
@@ -2023,12 +2023,15 @@ code {
   margin: 0;
 }
 
+.tldr-kpis {
+  text-align: center;
+}
+
 .kpis--hero {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: var(--kpi-gap);
-  text-align: left;
   padding: 0;
   margin: 0;
 }
@@ -2036,6 +2039,7 @@ code {
 .kpis--hero>li {
   flex: 0 1 auto;
   min-width: 0;
+  text-align: center;
 }
 
 .kpis--hero li strong {
