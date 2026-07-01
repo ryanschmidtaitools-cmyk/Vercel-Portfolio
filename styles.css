@@ -141,6 +141,7 @@ html {
   --gray-50: #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
   --bg: var(--gray-100);
 
   /* Surface levels (more distinct steps) */
@@ -937,15 +938,19 @@ code {
 /* -------------------------------------------------------
    Leadership & About
 --------------------------------------------------------*/
-.leadership-section,
-.about-section {
-  background: var(--gray-200);
+.leadership-section {
   color: var(--text);
 }
 
 .builder-section {
   background: var(--gray-200);
   color: var(--text);
+}
+
+.about-section {
+  background: var(--gray-300);
+  color: var(--text);
+  padding-bottom: var(--space-section-lg);
 }
 
 /* Wrapper behaves like a container */
@@ -2374,8 +2379,9 @@ code {
 /* Inline case study media (replaces carousel) */
 .case-study-media {
   margin-block: var(--space-8);
-  max-width: min(100%, 1800px);
-  margin-inline: auto;
+  width: 100vw;
+  max-width: 1800px;
+  margin-left: calc(-50vw + 50%);
 }
 
 .case-study-media .image-splitter {
@@ -3357,10 +3363,6 @@ code {
 
   [data-about-overlay] h2 {
     font-size: 1.125rem;
-  }
-
-  .case-study figure {
-    margin-inline: calc(-1 * var(--page-gutter));
   }
 
   .hamburger {
