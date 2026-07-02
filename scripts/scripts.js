@@ -187,7 +187,12 @@
       const aiSend = document.getElementById('ai-mini-send');
       const aiInput = document.getElementById('ai-mini-input');
       if (aiSend && aiInput) {
+        // On case-study pages, rs-chat-widget.js owns the mini-input via
+        // wireExternalTrigger (opens panel on focus) and floating pills send
+        // directly — skip the redundant event dispatch to avoid double-send.
+        const isCaseStudy = document.body.classList.contains('case-study');
         aiSend.addEventListener('click', function(){
+          if (isCaseStudy) return;
           const q = aiInput.value.trim();
           if (!q) return;
           document.dispatchEvent(new CustomEvent('rs:ask-section', { detail: { prompt: q, sectionContext: { heading: 'Mini AI' } } }));

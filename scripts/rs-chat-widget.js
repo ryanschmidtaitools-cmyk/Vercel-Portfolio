@@ -755,6 +755,12 @@ if (savedHist.length > 0) {
     panel.classList.add('open');
     backdrop.classList.add('open');
 
+    // Hide floating pills when panel opens
+    if (floatingPillsEl) {
+      floatingPillsEl.classList.remove('is-visible');
+      floatingPillsEl.setAttribute('aria-hidden', 'true');
+    }
+
     if (window.gsap) {
       const miniWrapper = document.querySelector('.ai-mini-wrapper');
       if (miniWrapper) gsap.to(miniWrapper, { opacity: 0, duration: 0.2, ease: "power2.out" });
@@ -780,6 +786,13 @@ if (savedHist.length > 0) {
     typewriterStop();
   }
 
+  function restoreFloatingPills() {
+    if (floatingPillsEl && isCaseStudyPage()) {
+      floatingPillsEl.removeAttribute('aria-hidden');
+      floatingPillsEl.classList.add('is-visible');
+    }
+  }
+
   function closePanel(){
     // Sync typed text back to mini input
     const miniInput = document.getElementById('ai-mini-input');
@@ -801,6 +814,7 @@ if (savedHist.length > 0) {
           panel.style.height = '';
           const miniWrapper = document.querySelector('.ai-mini-wrapper');
           if (miniWrapper) gsap.to(miniWrapper, { opacity: 1, duration: 0.3, ease: "power2.out" });
+          restoreFloatingPills();
           typewriterStart();
         }
       });
@@ -812,6 +826,7 @@ if (savedHist.length > 0) {
       panel.style.height = '';
       const miniWrapper = document.querySelector('.ai-mini-wrapper');
       if (miniWrapper) miniWrapper.style.opacity = '1';
+      restoreFloatingPills();
     }
     
     try { lastFocusedEl?.focus?.(); } catch {}
@@ -849,10 +864,14 @@ if (savedHist.length > 0) {
     document.addEventListener('DOMContentLoaded', () => {
       wireExternalTrigger();
       initTypewriter();
+      buildFloatingCaseStudyPills();
+      wireFloatingCaseStudyPills();
     });
   } else {
     wireExternalTrigger();
     initTypewriter();
+    buildFloatingCaseStudyPills();
+    wireFloatingCaseStudyPills();
   }
 
   backdrop?.addEventListener('click', closePanel);
@@ -951,31 +970,31 @@ if (savedHist.length > 0) {
   // ─── Page-Aware Smart Pills ──────────────────────────────────────────────
   const PAGE_PILLS = {
     '/dashboard.html': [
-      "How did it achieve +71% engagement?",
-      "Why not go AI-first?",
-      "What lessons did you learn?"
+      "How did you drive 71% more engagement?",
+      "Walk me through your UX research process.",
+      "What made this project succeed?"
     ],
     '/inventory.html': [
-      "Why ship an MVP first?",
-      "How did you earn stakeholder buy-in?",
-      "What lessons did you learn?"
+      "Why start with an MVP?",
+      "How did you get stakeholder buy-in?",
+      "What was your biggest challenge?"
     ],
     '/ai-coding-portfolio.html': [
-      "What tools and workflow did he use?",
-      "Why a database instead of a JSON file?",
-      "What lessons did you learn?"
+      "What tools and workflow did you use?",
+      "Why a database over a JSON file?",
+      "How does this prove design leadership?"
     ],
     '/about.html': [
-      "Tell me about Ryan's mentorship work.",
-      "What makes Ryan a strong design leader?"
+      "What does your mentorship work look like?",
+      "What makes you a strong design leader?"
     ],
     '/member-portal-overhaul.html': [
       "Why progressive disclosure over flat navigation?",
-      "What lessons did you learn?"
+      "What was your role in this project?"
     ],
     '/index.html': [
       "Why is Ryan a fit at [Company]?",
-      "How does Ryan approach AI in product UX?",
+      "How do you approach AI in product UX?",
       "Which case study best fits [product]?"
     ],
     '/': [
@@ -984,6 +1003,16 @@ if (savedHist.length > 0) {
       "Which case study should I read first?"
     ]
   };
+
+  function isCaseStudyPage() {
+    return !!document.querySelector('article.case-study, .case-study');
+  }
+
+  function getCurrentPagePills(customPills) {
+    const path = canonicalPagePath(location.pathname);
+    const kbChips = state.kb?.chips?.default;
+    return customPills || PAGE_PILLS[path] || kbChips || PAGE_PILLS['/'];
+  }
 
   function canonicalPagePath(pathname = '') {
     const path = String(pathname || '').replace(/\/$/, '') || '/';
@@ -996,11 +1025,72 @@ if (savedHist.length > 0) {
   function setPagePills(customPills) {
     const pillsContainer = $('#pills');
     if (!pillsContainer) return;
-    const path = canonicalPagePath(location.pathname);
-    const kbChips = state.kb?.chips?.default;
-    const pills = customPills || PAGE_PILLS[path] || kbChips || PAGE_PILLS['/'];
+    const pills = getCurrentPagePills(customPills);
     setPillsFromArray(pills);
     requestAnimationFrame(() => pillsContainer.classList.add('show'));
+    if (isCaseStudyPage()) {
+      renderFloatingCaseStudyPills(pills);
+    }
+  }
+
+  // ─── Floating Case-Study Pills (light-DOM) ─────────────────────────────────
+  let floatingPillsEl = null;
+  let floatingPillsBound = false;
+
+  function buildFloatingCaseStudyPills() {
+    if (!isCaseStudyPage()) return;
+
+    const miniWrapper = document.querySelector('.ai-mini-wrapper');
+    if (!miniWrapper) return;
+
+    if (floatingPillsEl && floatingPillsEl.isConnected) return;
+
+    floatingPillsEl = document.createElement('div');
+    floatingPillsEl.className = 'ai-mini-suggestions';
+    floatingPillsEl.setAttribute('aria-label', 'Suggested questions for this case study');
+
+    miniWrapper.parentNode.insertBefore(floatingPillsEl, miniWrapper);
+    renderFloatingCaseStudyPills();
+  }
+
+  function renderFloatingCaseStudyPills(customPills) {
+    if (!isCaseStudyPage()) return;
+    if (!floatingPillsEl) return;
+
+    const pills = getCurrentPagePills(customPills).slice(0, 3);
+    floatingPillsEl.innerHTML = '';
+
+    pills.forEach(function (text) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ai-mini-suggestion-pill';
+      btn.dataset.prompt = text;
+      btn.textContent = text;
+      floatingPillsEl.appendChild(btn);
+    });
+
+    floatingPillsEl.classList.toggle('is-visible', pills.length > 0 && !panel.classList.contains('open'));
+  }
+
+  function wireFloatingCaseStudyPills() {
+    if (floatingPillsBound) return;
+    if (!isCaseStudyPage()) return;
+
+    document.addEventListener('click', function (e) {
+      const pill = e.target.closest('.ai-mini-suggestion-pill');
+      if (!pill) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const prompt = pill.dataset.prompt || pill.textContent.trim();
+      if (!prompt) return;
+
+      openPanel();
+      send(prompt);
+    });
+
+    floatingPillsBound = true;
   }
 
   // Set pills on load
@@ -1486,6 +1576,9 @@ if (savedHist.length > 0) {
             setPillsFromArray(data.suggested_pills);
             requestAnimationFrame(function () { pillsContainer.classList.add('show'); });
           }, 180);
+        }
+        if (isCaseStudyPage()) {
+          renderFloatingCaseStudyPills(data.suggested_pills);
         }
       }
 

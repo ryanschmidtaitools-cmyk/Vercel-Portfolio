@@ -3798,6 +3798,89 @@ figure.case-study-media {
   box-shadow: 0 0 0 4px rgba(79, 110, 247, 0.16);
 }
 
+/* Case-study floating suggestion pills above mini input */
+.ai-mini-suggestions {
+  position: fixed;
+  right: var(--space-5);
+  bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px) + 68px);
+  z-index: 239;
+  width: min(420px, calc(100vw - 84px));
+  max-width: min(420px, calc(100vw - 84px));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.ai-mini-suggestions.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ai-mini-suggestion-pill {
+  max-width: 100%;
+  border: 1px solid var(--surface-dark-border);
+  border-radius: var(--radius-pill);
+  padding: 0.625rem 1rem;
+  background: rgba(6, 12, 22, 0.82);
+  color: #f8fafc;
+  box-shadow: var(--shadow-menu);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ai-mini-suggestion-pill:hover,
+.ai-mini-suggestion-pill:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(15, 23, 42, 0.94);
+  border-color: rgba(79, 110, 247, 0.42);
+  box-shadow: var(--shadow-menu-hover);
+}
+
+.ai-mini-suggestion-pill:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(79, 110, 247, 0.16), var(--shadow-menu-hover);
+}
+
+@media (max-width: 768px) {
+  .ai-mini-suggestions {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px) + 64px);
+    width: min(420px, calc(100vw - 24px));
+    max-width: calc(100vw - 24px);
+    gap: 0.5rem;
+  }
+
+  .ai-mini-suggestion-pill {
+    max-width: min(360px, calc(100vw - 24px));
+    font-size: 13px;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .ai-mini-suggestion-pill:nth-child(n+3) {
+    display: none;
+  }
+}
+
 /* =====================================================
    PRINT MEDIA OPTIMIZATION
    ===================================================== */
