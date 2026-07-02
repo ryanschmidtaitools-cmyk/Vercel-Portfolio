@@ -2401,7 +2401,7 @@ code {
 }
 
 /* Inline case study media (replaces carousel) */
-.case-study-media {
+figure.case-study-media {
   margin-block: var(--space-8);
   width: 100vw;
   max-width: 960px;
