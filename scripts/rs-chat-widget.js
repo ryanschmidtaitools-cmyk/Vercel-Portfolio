@@ -210,7 +210,8 @@
         display: flex;
         flex-wrap: wrap;
         gap: var(--space-2, .5rem);
-        padding: 0 var(--space-4, 1rem) var(--space-2, .5rem);
+        padding: var(--space-2, .5rem) var(--space-4, 1rem) 0;
+        flex: 0 0 auto;
       }
       .pill {
         font: inherit;
@@ -481,9 +482,9 @@
           </div>
 
           <div class="msgs" id="msgs" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Chat conversation"></div>
-
-          <div class="pills" id="pills"></div>
         </div>
+
+        <div class="pills" id="pills"></div>
 
         <div class="inp">
           <label for="input" class="visually-hidden">Ask Ryan's portfolio assistant</label>

@@ -2404,8 +2404,9 @@ code {
 .case-study-media {
   margin-block: var(--space-8);
   width: 100vw;
-  max-width: 1200px;
+  max-width: 960px;
   margin-left: calc(-50vw + 50%);
+  text-align: center;
 }
 
 .case-study-media .image-splitter {
